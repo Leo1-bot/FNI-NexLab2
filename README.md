@@ -1,22 +1,5 @@
-# Spring Boot JWT
-
-![](https://img.shields.io/badge/build-success-brightgreen.svg)
-
-# Stack
-
-![](https://img.shields.io/badge/java_8-✓-blue.svg)
-![](https://img.shields.io/badge/spring_boot-✓-blue.svg)
-![](https://img.shields.io/badge/mysql-✓-blue.svg)
-![](https://img.shields.io/badge/jwt-✓-blue.svg)
-![](https://img.shields.io/badge/swagger_2-✓-blue.svg)
-
-You can find a related post for this repository [here](https://medium.com/@xoor/jwt-authentication-service-44658409e12c).
-
-***
-
-<h3 align="center">Please help this repo with a :star: if you find it useful! :blush:</h3>
-
-***
+# FNI-NexLab
+Life Insurance API for NexLab version 2 with data structure changes
 
 # File structure
 
@@ -328,11 +311,11 @@ http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 1. Make sure you have [Java 8](https://www.java.com/download/) and [Maven](https://maven.apache.org) installed
 
 2. Fork this repository and clone it
-  
+
   ```
   $ git clone https://github.com/<your-user>/spring-boot-jwt
   ```
-  
+
 3. Navigate into the folder  
 
   ```
@@ -387,4 +370,4 @@ http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
       "ROLE_ADMIN"
     ]
   }
-  ````
+````
