@@ -22,12 +22,13 @@ spring-boot-jwt/
  │       │   ├── CustomException.java
  │       │   └── GlobalExceptionController.java
  │       │
- │       ├── model
+ │       ├── domain
+ |		 |	 ├── service
+ │       |	 │   └── UserService.java
+ |		 |	 ├── repository
+ │       |	 │   └── UserRepository.java
  │       │   ├── Role.java
  │       │   └── User.java
- │       │
- │       ├── repository
- │       │   └── UserRepository.java
  │       │
  │       ├── security
  │       │   ├── JwtTokenFilter.java
@@ -36,10 +37,7 @@ spring-boot-jwt/
  │       │   ├── MyUserDetails.java
  │       │   └── WebSecurityConfig.java
  │       │
- │       ├── service
- │       │   └── UserService.java
- │       │
- │       └── JwtAuthServiceApp.java
+ │       └── Main.java
  │
  ├── src/main/resources/
  │   └── application.yml
