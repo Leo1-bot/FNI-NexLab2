@@ -23,10 +23,10 @@ spring-boot-jwt/
  │       │   └── GlobalExceptionController.java
  │       │
  │       ├── domain
- |		     |	  ├── service
- │       |	  │   └── UserService.java
- |		     |	  ├── repository
- │       |	  │   └── UserRepository.java
+ |       |   ├── service
+ │       |   │   └── UserService.java
+ |       |   ├── repository
+ │       |   │   └── UserRepository.java
  │       │   ├── Role.java
  │       │   └── User.java
  │       │
