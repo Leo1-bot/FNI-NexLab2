@@ -23,10 +23,6 @@ public class FarmerProposalDTO {
 	@NotNull(message = "Period Month is mandatory")
 	private int periodMonth;
 
-	@ApiModelProperty(position = 1, example = "ISPRD003001000009376125072017", required = true)
-	@NotBlank(message = "Product ID is mandatory")
-	private String productId;
-
 	@ApiModelProperty(position = 3, example = "ISSYS002001000000000103062019", required = true)
 	@NotBlank(message = "Agent ID is mandatory")
 	private String agentId;
@@ -36,12 +32,7 @@ public class FarmerProposalDTO {
 	@NotNull(message = "customer is mandatory")
 	private CustomerDto customer;
 
-	@ApiModelProperty(position = 6, example = "ISSYS001001000000000103062019", required = true)
-	@NotBlank(message = "Customer ID is mandatory")
-	private String customerId;
-
-	@ApiModelProperty(position = 7, example = "ISSYS033001000000000104062019", required = true)
-	@NotBlank(message = "Organization ID is mandatory")
+	@ApiModelProperty(position = 7)
 	private String organizationId;
 
 	@ApiModelProperty(position = 8, example = "ISSYS0090001000000000429032013", required = true)

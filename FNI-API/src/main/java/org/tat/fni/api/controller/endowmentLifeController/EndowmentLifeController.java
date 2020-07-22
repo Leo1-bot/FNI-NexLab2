@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.endowmentLifeDTO.EndowmentLifeDTO;
@@ -43,7 +43,7 @@ public class EndowmentLifeController {
 	public ResponseDTO<Object> submitproposal(
 			@ApiParam("Submit Endowment Life Proposal") @Valid @RequestBody EndowmentLifeDTO publicLifeDTO) {
 
-		List<LifeProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		EndowmentLifeDTO dto = mapper.map(publicLifeDTO, EndowmentLifeDTO.class);
 
 		// create Farmer proposal

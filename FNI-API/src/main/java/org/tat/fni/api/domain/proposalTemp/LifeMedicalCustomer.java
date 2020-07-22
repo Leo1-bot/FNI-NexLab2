@@ -3,7 +3,6 @@ package org.tat.fni.api.domain.proposalTemp;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -16,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -35,6 +34,7 @@ import org.tat.fni.api.common.emumdata.Gender;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.MaritalStatus;
 import org.tat.fni.api.common.emumdata.PassportType;
+import org.tat.fni.api.domain.Industry;
 
 import lombok.Data;
 
@@ -109,18 +109,24 @@ public class LifeMedicalCustomer {
 	private ResidentAddress residentAddress;
 	
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "PROPOSAL_LIFE_MEDICAL_CUSTOMERINFOSTATUS_TEMP", joinColumns = @JoinColumn(name = "CUSTOMERID", referencedColumnName = "ID"))
+	@CollectionTable(name = "PROPOSAL_LIFE_MEDICAL_CUSTOMERFAMILY_TEMP", joinColumns = @JoinColumn(name = "CUSTOMERID", referencedColumnName = "ID"))
 	private List<LifeMedicalCustomerFamily> familyInfo;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer", orphanRemoval = true)
-	private List<LifeMedicalCustomerInfoStatus> customerStatusList;
+	//@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer", orphanRemoval = true)
+	//private List<LifeMedicalCustomerInfoStatus> customerStatusList;
 
 	private String bankBranchId;
 	private String branchId;
 	private String nationalityId;
-	private String industryId;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "INDURSTRYID", referencedColumnName = "ID")
+	private Industry industry;
+	
 	private String occupationId;
 	private String qualificationId;
 	private String religionId;
 	private boolean isExisting;
+	private boolean status;
+	
 }

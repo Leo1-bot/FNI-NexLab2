@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.tat.fni.api.common.KeyFactor;
 import org.tat.fni.api.common.Name;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.emumdata.Gender;
@@ -24,7 +23,6 @@ import org.tat.fni.api.domain.Branch;
 import org.tat.fni.api.domain.Customer;
 import org.tat.fni.api.domain.DateUtils;
 import org.tat.fni.api.domain.InsuredPersonBeneficiaries;
-import org.tat.fni.api.domain.InsuredPersonKeyFactorValue;
 import org.tat.fni.api.domain.Occupation;
 import org.tat.fni.api.domain.Organization;
 import org.tat.fni.api.domain.PaymentType;
@@ -39,7 +37,6 @@ import org.tat.fni.api.domain.repository.LifeProposalRepository;
 import org.tat.fni.api.domain.services.AgentService;
 import org.tat.fni.api.domain.services.BaseService;
 import org.tat.fni.api.domain.services.BranchService;
-import org.tat.fni.api.domain.services.CustomerService;
 import org.tat.fni.api.domain.services.OccupationService;
 import org.tat.fni.api.domain.services.OrganizationService;
 import org.tat.fni.api.domain.services.PaymentTypeService;
@@ -51,11 +48,9 @@ import org.tat.fni.api.domain.services.TownShipService;
 import org.tat.fni.api.domain.services.Interfaces.ICustomIdGenerator;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProposalService;
-//import org.tat.fni.api.domain.repository.FarmerRepository;
 import org.tat.fni.api.dto.farmerDTO.FarmerProposalDTO;
 import org.tat.fni.api.dto.farmerDTO.FarmerProposalInsuredPersonBeneficiariesDTO;
 import org.tat.fni.api.dto.farmerDTO.FarmerProposalInsuredPersonDTO;
-import org.tat.fni.api.dto.shortTermEndowmentLifeDTO.ShortTermProposalInsuredPersonDTO;
 import org.tat.fni.api.exception.DAOException;
 import org.tat.fni.api.exception.SystemException;
 
@@ -84,9 +79,6 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 
 	@Autowired
 	private OccupationService occupationService;
-
-	@Autowired
-	private CustomerService customerService;
 
 	@Autowired
 	private OrganizationService organizationService;
@@ -148,9 +140,7 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 
 		FarmerProposalDTO farmerProposalDTO = (FarmerProposalDTO) proposalDto;
 
-		Optional<Product> productOptional = productService.findById(farmerProposalDTO.getProductId());
 		Optional<Branch> branchOptional = branchService.findById(branchId);
-		Optional<Customer> customerOptional = customerService.findById(farmerProposalDTO.getCustomerId());
 		Optional<Organization> organizationOptional = organizationService
 				.findById(farmerProposalDTO.getOrganizationId());
 		Optional<PaymentType> paymentTypeOptional = paymentTypeService.findById(farmerProposalDTO.getPaymentTypeId());
@@ -198,9 +188,6 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 				}
 				if (salePointOptional.isPresent()) {
 					lifeProposal.setSalesPoints(salePointOptional.get());
-				}
-				if (customerOptional.isPresent()) {
-					lifeProposal.setCustomer(customerOptional.get());
 				}
 
 				String proposalNo = customId.getNextId("FARMER_PROPOSAL_NO", null);

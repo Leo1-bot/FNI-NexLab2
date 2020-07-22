@@ -1,7 +1,10 @@
 package org.tat.fni.api.domain.proposalTemp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -102,12 +106,10 @@ public class LifeMedicalInsuredPerson {
 	
 	@Embedded
 	private ResidentAddress residentAddress;
-
-	private String residentTownshipId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "LIFEPROPOSALID", referencedColumnName = "ID")
-	private LifeMedicalProposal lifeMedicalProposal;
+	private LifeMedicalProposal lifeProposal;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CUSTOMERID", referencedColumnName = "ID")
@@ -115,7 +117,7 @@ public class LifeMedicalInsuredPerson {
 
 	private String occupationId;
 	private String productId;
-	private String typeOfSportId;
+	private String typesOfSportId;
 	private String relationshipId;
 	private int approvedUnit;
 	private int weight;
@@ -127,7 +129,8 @@ public class LifeMedicalInsuredPerson {
 	@Temporal(TemporalType.DATE)
 	private Date parentDOB;
 	
-	private String gradeInfo;
+	@Column(name = "GRATEINFOID")
+	private String gradeInfoId;
 	private String parentName;
 	private String parentIdNo;
 	
@@ -144,5 +147,15 @@ public class LifeMedicalInsuredPerson {
 	private String guardianId;
 	private String medicalProposalId;
 	private double sumInsured;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "proposalInsuredPerson", orphanRemoval = true)
+	private List<LifeMedicalInsuredPersonBeneficiary> insuredPersonBeneficiariesList;
+	
+	public List<LifeMedicalInsuredPersonBeneficiary> getInsuredPersonBeneficiariesList() {
+		if (this.insuredPersonBeneficiariesList == null) {
+			this.insuredPersonBeneficiariesList = new ArrayList<LifeMedicalInsuredPersonBeneficiary>();
+		}
+		return this.insuredPersonBeneficiariesList;
+	}
 	
 }

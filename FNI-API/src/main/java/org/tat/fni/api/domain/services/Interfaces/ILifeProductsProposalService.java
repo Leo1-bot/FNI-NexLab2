@@ -2,23 +2,19 @@ package org.tat.fni.api.domain.services.Interfaces;
 
 import java.util.List;
 
-import org.tat.fni.api.common.KeyFactor;
-import org.tat.fni.api.domain.Customer;
-import org.tat.fni.api.domain.InsuredPersonBeneficiaries;
-import org.tat.fni.api.domain.InsuredPersonKeyFactorValue;
-import org.tat.fni.api.domain.ProposalInsuredPerson;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
-import org.tat.fni.api.dto.endowmentLifeDTO.EndowmentLifeProposalInsuredPersonDTO;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPersonBeneficiary;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 
 public interface ILifeProductsProposalService {
 
-	public <T> List<LifeProposal> createDtoToProposal(T proposalDto);
+	public <T> List<LifeMedicalProposal> createDtoToProposal(T proposalDto);
 
-	public <T> List<LifeProposal> convertProposalDTOToProposal(T proposalDto);
+	public <T> List<LifeMedicalProposal> convertProposalDTOToProposal(T proposalDto);
 
-	public <T> ProposalInsuredPerson createInsuredPerson(T proposalInsuredPersonDTO);
+	public <T> LifeMedicalInsuredPerson createInsuredPerson(T proposalInsuredPersonDTO);
 
-	public <T> InsuredPersonBeneficiaries createInsuredPersonBeneficiareis(T insuredPersonBeneficiariesDto,
-			ProposalInsuredPerson insuredPerson);
+	public <T> LifeMedicalInsuredPersonBeneficiary createInsuredPersonBeneficiareis(T insuredPersonBeneficiariesDto,
+			LifeMedicalInsuredPerson insuredPerson);
 
 }

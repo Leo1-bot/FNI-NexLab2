@@ -2,7 +2,6 @@ package org.tat.fni.api.domain.proposalTemp;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.EnumType;
@@ -17,7 +16,6 @@ import lombok.Data;
 @Data
 public class LifeMedicalCustomerFamily {
 
-	@Column(name = "DATEOFBIRTH")
 	private Date dateOfBirth;
 	
 	private String idNo;

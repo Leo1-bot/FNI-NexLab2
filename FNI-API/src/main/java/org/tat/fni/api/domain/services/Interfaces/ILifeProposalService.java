@@ -2,10 +2,10 @@ package org.tat.fni.api.domain.services.Interfaces;
 
 
 import org.tat.fni.api.common.KeyFactor;
-import org.tat.fni.api.domain.Customer;
 import org.tat.fni.api.domain.InsuredPersonKeyFactorValue;
 import org.tat.fni.api.domain.ProposalInsuredPerson;
 import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
 import org.tat.fni.api.dto.customerDTO.CustomerDto;
 
 public interface ILifeProposalService {
@@ -19,8 +19,10 @@ public interface ILifeProposalService {
 	
 	public void calculateTermPremium(LifeProposal lifeProposal);
 	
-	public <T> Customer createNewCustomer(T customerDto);
+	public <T> LifeMedicalCustomer createNewCustomer(T customerDto);
 	
-	public Customer checkCustomerAvailability(CustomerDto dto);
+	public Boolean checkCustomerAvailability(CustomerDto dto);
+	
+	public LifeMedicalCustomer checkCustomerAvailabilityTemp(CustomerDto dto);
 
 }

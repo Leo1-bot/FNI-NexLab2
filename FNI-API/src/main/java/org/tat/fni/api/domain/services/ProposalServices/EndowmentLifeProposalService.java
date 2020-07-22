@@ -3,7 +3,6 @@ package org.tat.fni.api.domain.services.ProposalServices;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,27 +17,13 @@ import org.tat.fni.api.common.emumdata.Gender;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.ProposalType;
 import org.tat.fni.api.common.emumdata.SaleChannelType;
-import org.tat.fni.api.domain.Agent;
-import org.tat.fni.api.domain.Branch;
-import org.tat.fni.api.domain.Customer;
 import org.tat.fni.api.domain.DateUtils;
-import org.tat.fni.api.domain.InsuredPersonBeneficiaries;
-import org.tat.fni.api.domain.Occupation;
-import org.tat.fni.api.domain.PaymentType;
-import org.tat.fni.api.domain.Product;
-import org.tat.fni.api.domain.ProposalInsuredPerson;
-import org.tat.fni.api.domain.RelationShip;
-import org.tat.fni.api.domain.SalesPoints;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
-import org.tat.fni.api.domain.repository.LifeProposalRepository;
-import org.tat.fni.api.domain.services.AgentService;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPersonBeneficiary;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
+import org.tat.fni.api.domain.proposalTemp.repository.LifeMedicalProposalRepository;
 import org.tat.fni.api.domain.services.BaseService;
-import org.tat.fni.api.domain.services.BranchService;
-import org.tat.fni.api.domain.services.OccupationService;
-import org.tat.fni.api.domain.services.PaymentTypeService;
-import org.tat.fni.api.domain.services.ProductService;
-import org.tat.fni.api.domain.services.RelationshipService;
-import org.tat.fni.api.domain.services.SalePointService;
 import org.tat.fni.api.domain.services.Interfaces.ICustomIdGenerator;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProposalService;
@@ -54,28 +39,7 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private LifeProposalRepository lifeProposalRepo;
-
-	@Autowired
-	private PaymentTypeService paymentTypeService;
-
-	@Autowired
-	private ProductService productService;
-	
-	@Autowired
-	private BranchService branchService;
-
-	@Autowired
-	private AgentService agentService;
-
-	@Autowired
-	private OccupationService occupationService;
-
-	@Autowired
-	private SalePointService salePointService;
-
-	@Autowired
-	private RelationshipService relationshipService;
+	private LifeMedicalProposalRepository lifeMedicalProposalRepo;
 
 	@Autowired
 	private ICustomIdGenerator customId;
@@ -94,22 +58,22 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public <T> List<LifeProposal> createDtoToProposal(T proposalDto) {
+	public <T> List<LifeMedicalProposal> createDtoToProposal(T proposalDto) {
 		try {
 
 			EndowmentLifeDTO publicLifeDTO = (EndowmentLifeDTO) proposalDto;
 
-			List<LifeProposal> publicLifeProposalList = convertProposalDTOToProposal(publicLifeDTO);
-			lifeProposalRepo.saveAll(publicLifeProposalList);
+			List<LifeMedicalProposal> publicLifeProposalList = convertProposalDTOToProposal(publicLifeDTO);
+			lifeMedicalProposalRepo.saveAll(publicLifeProposalList);
 
-			String id = DateUtils.formattedSqlDate(new Date()).concat(publicLifeProposalList.get(0).getProposalNo());
-			String referenceNo = publicLifeProposalList.get(0).getId();
-			String referenceType = "ENDOWMENT_LIFE";
-			String createdDate = DateUtils.formattedSqlDate(new Date());
-			String workflowDate = DateUtils.formattedSqlDate(new Date());
-
-			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
+//			String id = DateUtils.formattedSqlDate(new Date()).concat(publicLifeProposalList.get(0).getProposalNo());
+//			String referenceNo = publicLifeProposalList.get(0).getId();
+//			String referenceType = "ENDOWMENT_LIFE";
+//			String createdDate = DateUtils.formattedSqlDate(new Date());
+//			String workflowDate = DateUtils.formattedSqlDate(new Date());
+//
+//			lifeMedicalProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
+//			lifeMedicalProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
 
 			return publicLifeProposalList;
 
@@ -121,23 +85,18 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 	}
 
 	@Override
-	public <T> List<LifeProposal> convertProposalDTOToProposal(T proposalDto) {
+	public <T> List<LifeMedicalProposal> convertProposalDTOToProposal(T proposalDto) {
 
 		EndowmentLifeDTO publicLifeDTO = (EndowmentLifeDTO) proposalDto;
 
-		Optional<PaymentType> paymentTypeOptional = paymentTypeService.findById(publicLifeDTO.getPaymentTypeId());
-		Optional<Agent> agentOptional = agentService.findById(publicLifeDTO.getAgentId());
-		Optional<Branch> branchOptional = branchService.findById(branchId);
-		Optional<SalesPoints> salePointOptional = salePointService.findById(salespointId);
-
-		List<LifeProposal> lifeProposalList = new ArrayList<>();
+		List<LifeMedicalProposal> lifeProposalList = new ArrayList<>();
 
 		try {
 			publicLifeDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
 
-				LifeProposal lifeProposal = new LifeProposal();
+				LifeMedicalProposal lifeProposal = new LifeMedicalProposal();
 
-				Customer customer = lifeProposalService.checkCustomerAvailability(publicLifeDTO.getCustomer());
+				LifeMedicalCustomer customer = lifeProposalService.checkCustomerAvailabilityTemp(publicLifeDTO.getCustomer());
 
 				if (customer == null) {
 					lifeProposal.setCustomer(lifeProposalService.createNewCustomer(publicLifeDTO.getCustomer()));
@@ -151,32 +110,23 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 
 				lifeProposal.setComplete(false);
-//				lifeProposal.setStatus(false);
+				lifeProposal.setStatus(false);
 				lifeProposal.setProposalType(ProposalType.UNDERWRITING);
 				lifeProposal.setSubmittedDate(publicLifeDTO.getSubmittedDate());
 				lifeProposal.setPeriodMonth(publicLifeDTO.getPeriodMonth());
 				lifeProposal.setSaleChannelType(SaleChannelType.AGENT);
-
-				if (paymentTypeOptional.isPresent()) {
-					lifeProposal.setPaymentType(paymentTypeOptional.get());
-				}
-				if (agentOptional.isPresent()) {
-					lifeProposal.setAgent(agentOptional.get());
-				}
-				if (salePointOptional.isPresent()) {
-					lifeProposal.setSalesPoints(salePointOptional.get());
-				}
-				if (branchOptional.isPresent()) {
-					lifeProposal.setBranch(branchOptional.get());
-				}
+				lifeProposal.setPaymentTypeId(publicLifeDTO.getPaymentTypeId());
+				lifeProposal.setAgentId(publicLifeDTO.getAgentId());
+				lifeProposal.setSalesPointsId(salespointId);
+				lifeProposal.setBranchId(branchId);
 
 				String proposalNo = customId.getNextId("PUBLICLIFE_PROPOSAL_NO", null);
 				lifeProposal.setStartDate(publicLifeDTO.getStartDate());
 				lifeProposal.setEndDate(publicLifeDTO.getEndDate());
 				lifeProposal.setProposalNo(proposalNo);
 
-				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-				lifeProposalService.calculateTermPremium(lifeProposal);
+//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
+//				lifeProposalService.calculateTermPremium(lifeProposal);
 
 				lifeProposalList.add(lifeProposal);
 
@@ -190,13 +140,10 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 	}
 
 	@Override
-	public <T> ProposalInsuredPerson createInsuredPerson(T proposalInsuredPersonDTO) {
+	public <T> LifeMedicalInsuredPerson createInsuredPerson(T proposalInsuredPersonDTO) {
 		try {
 
 			EndowmentLifeProposalInsuredPersonDTO dto = (EndowmentLifeProposalInsuredPersonDTO) proposalInsuredPersonDTO;
-
-			Optional<Product> productOptional = productService.findById(publicTermLifeProductId);
-			Optional<Occupation> occupationOptional = occupationService.findById(dto.getOccupationID());
 
 			ResidentAddress residentAddress = new ResidentAddress();
 			residentAddress.setResidentAddress(dto.getResidentAddress());
@@ -206,8 +153,8 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 			name.setMiddleName(dto.getMiddleName());
 			name.setLastName(dto.getLastName());
 
-			ProposalInsuredPerson insuredPerson = new ProposalInsuredPerson();
-			insuredPerson.setProduct(productOptional.get());
+			LifeMedicalInsuredPerson insuredPerson = new LifeMedicalInsuredPerson();
+			insuredPerson.setProductId(publicTermLifeProductId);
 			insuredPerson.setInitialId(dto.getInitialId());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
 			insuredPerson.setProposedPremium(dto.getProposedPremium());
@@ -219,22 +166,18 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 			insuredPerson.setGender(Gender.valueOf(dto.getGender()));
 			insuredPerson.setResidentAddress(residentAddress);
 			insuredPerson.setName(name);
-
-			if (occupationOptional.isPresent()) {
-				insuredPerson.setOccupation(occupationOptional.get());
-			}
+			insuredPerson.setOccupationId(dto.getOccupationID());
 
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
 
-			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-				insuredPerson.getKeyFactorValueList()
-						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-			});
+//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
+//				insuredPerson.getKeyFactorValueList()
+//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
+//			});
 
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
-				insuredPerson.getInsuredPersonBeneficiariesList()
-						.add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
+				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});
 
 			return insuredPerson;
@@ -244,14 +187,11 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 	}
 
 	@Override
-	public <T> InsuredPersonBeneficiaries createInsuredPersonBeneficiareis(T insuredPersonBeneficiariesDto,
-			ProposalInsuredPerson insuredPerson) {
+	public <T> LifeMedicalInsuredPersonBeneficiary createInsuredPersonBeneficiareis(T insuredPersonBeneficiariesDto,
+			LifeMedicalInsuredPerson insuredPerson) {
 		try {
 
 			EndowmentLifeProposalInsuredPersonBeneficiariesDTO dto = (EndowmentLifeProposalInsuredPersonBeneficiariesDTO) insuredPersonBeneficiariesDto;
-
-			Optional<RelationShip> relationshipOptional = relationshipService.findById(dto.getRelationshipId());
-//			Optional<Township> townshipOptional = townShipService.findById(dto.getTownshipId());
 
 			ResidentAddress residentAddress = new ResidentAddress();
 			residentAddress.setResidentAddress(dto.getResidentAddress());
@@ -261,7 +201,7 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 			name.setMiddleName(dto.getMiddleName());
 			name.setLastName(dto.getLastName());
 
-			InsuredPersonBeneficiaries beneficiary = new InsuredPersonBeneficiaries();
+			LifeMedicalInsuredPersonBeneficiary beneficiary = new LifeMedicalInsuredPersonBeneficiary();
 			beneficiary.setInitialId(dto.getInitialId());
 			beneficiary.setPercentage(dto.getPercentage());
 			beneficiary.setPhone(dto.getPhone());
@@ -272,10 +212,7 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 			beneficiary.setAge(dto.getAge());
 			beneficiary.setName(name);
 			beneficiary.setProposalInsuredPerson(insuredPerson);
-
-			if (relationshipOptional.isPresent()) {
-				beneficiary.setRelationship(relationshipOptional.get());
-			}
+			beneficiary.setRelationshipId(dto.getRelationshipId());
 
 			String beneficiaryNo = customId.getNextId("LIFE_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);

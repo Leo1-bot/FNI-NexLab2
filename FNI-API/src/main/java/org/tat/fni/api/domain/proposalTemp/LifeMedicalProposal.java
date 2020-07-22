@@ -1,5 +1,6 @@
 package org.tat.fni.api.domain.proposalTemp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class LifeMedicalProposal {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CUSTOMERID", referencedColumnName = "ID")
-	private LifeMedicalCustomer customerId;
+	private LifeMedicalCustomer customer;
 	
 	private String lifePolicyId;
 	private String organizationId;
@@ -97,6 +98,7 @@ public class LifeMedicalProposal {
 	private String salesPointsId;
 
 	@Enumerated(value = EnumType.STRING)
+	@Column(name = "CUSTOMERCLSOFHEALTH")
 	private ClassificationOfHealth clsOfHealth;
 
 	private boolean isSkipPaymentTlf;
@@ -127,5 +129,29 @@ public class LifeMedicalProposal {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "MEDICALPROPOSALID", referencedColumnName = "ID")
 	private List<LifeMedicalInsuredPerson> medicalProposalInsuredPersonList;
+	
+	public List<LifeMedicalInsuredPerson> getProposalInsuredPersonList() {
+		if (this.proposalInsuredPersonList == null) {
+			this.proposalInsuredPersonList = new ArrayList<LifeMedicalInsuredPerson>();
+		}
+		return this.proposalInsuredPersonList;
+	}
+	
+	public List<LifeMedicalInsuredPerson> getMedicalProposalInsuredPersonList() {
+		if (this.medicalProposalInsuredPersonList == null) {
+			this.medicalProposalInsuredPersonList = new ArrayList<LifeMedicalInsuredPerson>();
+		}
+		return this.medicalProposalInsuredPersonList;
+	}
+	
+	public double getProposedPremium() {
+		double proposedPremium = 0.0;
+		for (LifeMedicalInsuredPerson pi : proposalInsuredPersonList) {
+			if (pi.getProposedPremium() > 0) {
+				proposedPremium = proposedPremium + pi.getProposedPremium();
+			}
+		}
+		return proposedPremium;
+	}
 
 }
