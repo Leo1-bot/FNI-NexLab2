@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.MedicalProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.criticalIllnessDTO.GroupCriticalIllnessDTO;
@@ -43,7 +43,7 @@ public class GroupCriticalIllnessController {
 	public ResponseDTO<Object> submitproposal(
 			@ApiParam("Submit CriticalillnessController Proposal") @Valid @RequestBody GroupCriticalIllnessDTO criticalillnessDTO) {
 
-		List<MedicalProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		GroupCriticalIllnessDTO dto = mapper.map(criticalillnessDTO, GroupCriticalIllnessDTO.class);
 
 		// create Individual Critical illness proposal
@@ -55,7 +55,7 @@ public class GroupCriticalIllnessController {
 		proposallist.forEach(proposal -> {
 			ProposalResponseDTO individualCriticalIllnessResponseDto = ProposalResponseDTO.builder()
 					.proposalID(proposal.getId()).proposalNo(proposal.getProposalNo())
-					.proposedPremium(proposal.getTotalPremium()).build();
+					.proposedPremium(proposal.getProposedPremium()).build();
 			responseList.add(individualCriticalIllnessResponseDto);
 		});
 

@@ -1,8 +1,8 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +18,14 @@ import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.ProposalType;
 import org.tat.fni.api.common.emumdata.SaleChannelType;
 import org.tat.fni.api.domain.DateUtils;
+import org.tat.fni.api.domain.Township;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPersonBeneficiary;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.proposalTemp.repository.LifeMedicalProposalRepository;
 import org.tat.fni.api.domain.services.BaseService;
+import org.tat.fni.api.domain.services.TownShipService;
 import org.tat.fni.api.domain.services.Interfaces.ICustomIdGenerator;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProposalService;
@@ -40,6 +42,9 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 
 	@Autowired
 	private LifeMedicalProposalRepository lifeMedicalProposalRepo;
+	
+	@Autowired
+	private TownShipService townShipService;
 
 	@Autowired
 	private ICustomIdGenerator customId;
@@ -104,8 +109,8 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 					lifeProposal.setCustomer(customer);
 				}
 
-				lifeProposalService.setPeriodMonthForKeyFacterValue(publicLifeDTO.getPeriodMonth(),
-						publicLifeDTO.getPaymentTypeId());
+//				lifeProposalService.setPeriodMonthForKeyFacterValue(publicLifeDTO.getPeriodMonth(),
+//						publicLifeDTO.getPaymentTypeId());
 
 				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 
@@ -193,8 +198,11 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 
 			EndowmentLifeProposalInsuredPersonBeneficiariesDTO dto = (EndowmentLifeProposalInsuredPersonBeneficiariesDTO) insuredPersonBeneficiariesDto;
 
+			Optional<Township> townshipOptional = townShipService.findById(dto.getTownshipId());
+			
 			ResidentAddress residentAddress = new ResidentAddress();
 			residentAddress.setResidentAddress(dto.getResidentAddress());
+			residentAddress.setTownship(townshipOptional.get());
 
 			Name name = new Name();
 			name.setFirstName(dto.getFirstName());

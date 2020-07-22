@@ -2,6 +2,7 @@ package org.tat.fni.api.domain;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Version;
+
 import org.tat.fni.api.common.IDInterceptor;
 import org.tat.fni.api.common.TableName;
 import org.tat.fni.api.common.UserRecorder;

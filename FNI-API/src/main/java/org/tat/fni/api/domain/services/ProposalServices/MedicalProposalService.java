@@ -8,42 +8,32 @@ import java.util.Optional;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.tat.fni.api.common.FamilyInfo;
 import org.tat.fni.api.common.KeyFactor;
 import org.tat.fni.api.common.Name;
 import org.tat.fni.api.common.OfficeAddress;
 import org.tat.fni.api.common.PermanentAddress;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.emumdata.ContentInfo;
-import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.utils.Utils;
-import org.tat.fni.api.domain.Country;
 import org.tat.fni.api.domain.Customer;
 import org.tat.fni.api.domain.IPremiumCalculatorService;
-import org.tat.fni.api.domain.Industry;
 import org.tat.fni.api.domain.MedicalKeyFactorValue;
 import org.tat.fni.api.domain.MedicalProposal;
 import org.tat.fni.api.domain.MedicalProposalInsuredPerson;
 import org.tat.fni.api.domain.MedicalProposalInsuredPersonAddOn;
-import org.tat.fni.api.domain.Occupation;
 import org.tat.fni.api.domain.PremiumCalData;
-import org.tat.fni.api.domain.Qualification;
-import org.tat.fni.api.domain.RelationShip;
-import org.tat.fni.api.domain.Religion;
 import org.tat.fni.api.domain.Township;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomerFamily;
+import org.tat.fni.api.domain.proposalTemp.repository.LifeMedicalCustomerRepository;
 import org.tat.fni.api.domain.repository.CustomerRepository;
-import org.tat.fni.api.domain.services.CountryService;
-import org.tat.fni.api.domain.services.IndustryService;
-import org.tat.fni.api.domain.services.OccupationService;
-import org.tat.fni.api.domain.services.QualificationService;
-import org.tat.fni.api.domain.services.RelationshipService;
-import org.tat.fni.api.domain.services.ReligionService;
 import org.tat.fni.api.domain.services.TownShipService;
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProposalService;
 import org.tat.fni.api.dto.customerDTO.CustomerDto;
@@ -57,27 +47,12 @@ public class MedicalProposalService implements IMedicalProposalService {
 
 	@Resource(name = "PremiumCalculatorService")
 	private IPremiumCalculatorService premiumCalculatorService;
-
+	
 	@Autowired
-	private QualificationService qualificationService;
-
-	@Autowired
-	private ReligionService religionService;
-
-	@Autowired
-	private CountryService countryService;
+	private LifeMedicalCustomerRepository customerTempRepository;
 
 	@Autowired
 	private TownShipService townshipService;
-
-	@Autowired
-	private IndustryService industryService;
-
-	@Autowired
-	private OccupationService occupationService;
-
-	@Autowired
-	private RelationshipService relationshipService;
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -211,15 +186,11 @@ public class MedicalProposalService implements IMedicalProposalService {
 	}
 
 	@Override
-	public <T> Customer createNewCustomer(T customerDto) {
+	public <T> LifeMedicalCustomer createNewCustomer(T customerDto) {
 		try {
 
 			CustomerDto dto = (CustomerDto) customerDto;
 
-			Optional<Religion> religionOptional = religionService.findById(dto.getReligionId());
-			Optional<Qualification> qualificationOptional = qualificationService.findById(dto.getQualificationId());
-			Optional<Occupation> occupationOptional = occupationService.findById(dto.getOccupationId());
-			Optional<Country> countryOptional = countryService.findById(dto.getCountryId());
 			Optional<Township> officeTownshipOptional = townshipService
 					.findById(dto.getOfficeAddress() == null ? null : dto.getOfficeAddress().getTownshipId());
 			Optional<Township> permanentTownshipOptional = townshipService
@@ -254,16 +225,10 @@ public class MedicalProposalService implements IMedicalProposalService {
 			name.setMiddleName(dto.getName() == null ? null : dto.getName().getMiddleName());
 			name.setLastName(dto.getName() == null ? null : dto.getName().getLastName());
 
-			List<FamilyInfo> familyInfo = new ArrayList<FamilyInfo>();
+			List<LifeMedicalCustomerFamily> familyInfo = new ArrayList<LifeMedicalCustomerFamily>();
 
 			if (dto.getFamilyInfoList() != null) {
 				dto.getFamilyInfoList().forEach(familydto -> {
-
-					Optional<RelationShip> relationshipOptional = relationshipService
-							.findById(familydto.getRelationShipId());
-					Optional<Industry> industryOptional = industryService.findById(familydto.getIndustryId());
-					Optional<Occupation> familyOccupationOptional = occupationService
-							.findById(familydto.getOccupationId());
 
 					Name familyName = new Name();
 
@@ -271,51 +236,65 @@ public class MedicalProposalService implements IMedicalProposalService {
 					familyName.setMiddleName(familydto.getName().getMiddleName());
 					familyName.setLastName(familydto.getName().getLastName());
 
-					FamilyInfo family = new FamilyInfo();
+					LifeMedicalCustomerFamily family = new LifeMedicalCustomerFamily();
 					family.setInitialId(familydto.getInitialId());
 					family.setIdNo(familydto.getIdNo());
 					family.setDateOfBirth(familydto.getDateOfBirth());
 					family.setName(familyName);
 					family.setIdType(familydto.getIdType());
-					family.setRelationShip(relationshipOptional.isPresent() ? relationshipOptional.get() : null);
-					family.setIndustry(industryOptional.isPresent() ? industryOptional.get() : null);
-					family.setOccupation(familyOccupationOptional.isPresent() ? familyOccupationOptional.get() : null);
-
+					family.setRelationshipId(familydto.getRelationShipId());
+					family.setIndustryId(familydto.getIndustryId());
+					family.setOccupationId(familydto.getOccupationId());
+					
 					familyInfo.add(family);
 
 				});
 			}
 
-			Customer customer = new Customer();
+			LifeMedicalCustomer customer = new LifeMedicalCustomer();
 			customer.setInitialId(dto.getInitialId());
 			customer.setFatherName(dto.getFatherName());
 			customer.setDateOfBirth(dto.getDateOfBirth());
 			customer.setLabourNo(dto.getLabourNo());
 			customer.setGender(dto.getGender());
-			customer.setIdNo(dto.getIdNo());
+			customer.setFullIdNo(dto.getIdNo());
 			customer.setIdType(dto.getIdType());
-			customer.setMaritalStatus(dto.getMaritalStatus());
+			if (StringUtils.isNotBlank(String.valueOf(dto.getMaritalStatus()))) {
+				customer.setMaritalStatus(dto.getMaritalStatus());
+			}
 			customer.setOfficeAddress(officeAddress);
 			customer.setPermanentAddress(permanentAddress);
 			customer.setResidentAddress(residentAddress);
 			customer.setContentInfo(contentInfo);
 			customer.setName(name);
 			customer.setFamilyInfo(familyInfo);
+			customer.setQualificationId(dto.getQualificationId());
+			customer.setReligionId(dto.getReligionId());
+			customer.setOccupationId(dto.getOccupationId());
+			customer.setNationalityId(dto.getCountryId());
 
-			if (qualificationOptional.isPresent()) {
-				customer.setQualification(qualificationOptional.get());
-			}
-			if (religionOptional.isPresent()) {
-				customer.setReligion(religionOptional.get());
-			}
-			if (occupationOptional.isPresent()) {
-				customer.setOccupation(occupationOptional.get());
-			}
-			if (countryOptional.isPresent()) {
-				customer.setCountry(countryOptional.get());
-			}
+			boolean customerExistInMain = checkCustomerAvailability(dto);
+					
+			customer.setStatus(customerExistInMain ? true : false);
 
-			customerRepository.save(customer);
+			customerTempRepository.save(customer);
+
+			return customer;
+
+		} catch (DAOException e) {
+			throw new SystemException(e.getErrorCode(), e.getMessage());
+		}
+	}
+	
+	@Override
+	public LifeMedicalCustomer checkCustomerAvailabilityTemp(CustomerDto dto) {
+
+		try {
+
+			String idNo = StringUtils.isBlank(dto.getIdNo()) ? "idNo" : dto.getIdNo();
+			String idType = (dto.getIdType()).toString();
+
+			LifeMedicalCustomer customer = customerTempRepository.findCustomerByIdNoAndIdType(idNo, idType);
 
 			return customer;
 
@@ -325,7 +304,7 @@ public class MedicalProposalService implements IMedicalProposalService {
 	}
 
 	@Override
-	public Customer checkCustomerAvailability(CustomerDto dto) {
+	public Boolean checkCustomerAvailability(CustomerDto dto) {
 		try {
 
 			String idNo = dto.getIdNo();
@@ -333,7 +312,11 @@ public class MedicalProposalService implements IMedicalProposalService {
 
 			Customer customer = customerRepository.findCustomerByIdNoAndIdType(idNo, idType);
 
-			return customer;
+			if (customer == null) {
+				return false;
+			}else {
+				return true;
+			}
 
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());

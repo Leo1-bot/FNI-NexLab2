@@ -380,6 +380,7 @@ public class LifeProposalService implements ILifeProposalService {
 		}
 	}
 
+	@Override
 	public LifeMedicalCustomer checkCustomerAvailabilityTemp(CustomerDto dto) {
 
 		try {
@@ -396,6 +397,7 @@ public class LifeProposalService implements ILifeProposalService {
 		}
 	}
 	
+	@Override
 	public Boolean checkCustomerAvailability(CustomerDto dto) {
 
 		try {

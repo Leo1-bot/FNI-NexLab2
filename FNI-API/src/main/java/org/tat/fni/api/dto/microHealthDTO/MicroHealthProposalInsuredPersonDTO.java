@@ -67,7 +67,7 @@ public class MicroHealthProposalInsuredPersonDTO {
 	@NotBlank(message = "idType is mandatory")
 	private IdType idType;
 
-	@ApiModelProperty(position = 13, example = "098166", required = true)
+	@ApiModelProperty(position = 13, example = "159492", required = true)
 	@NotBlank(message = "idType is mandatory")
 	private String idNo;
 

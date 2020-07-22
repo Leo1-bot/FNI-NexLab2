@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.responseDTO.ProposalResponseDTO;
@@ -43,7 +43,7 @@ public class ShortTermEndowmentLifeController {
 	public ResponseDTO<Object> submitproposal(
 			@ApiParam("Submit ShortTerm Proposal") @Valid @RequestBody ShortTermEndowmentLifeDTO shortTermEndowmentLifeDto) {
 
-		List<LifeProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 
 		ShortTermEndowmentLifeDTO dto = mapper.map(shortTermEndowmentLifeDto, ShortTermEndowmentLifeDTO.class);
 
@@ -56,7 +56,7 @@ public class ShortTermEndowmentLifeController {
 		proposallist.forEach(proposal -> {
 			ProposalResponseDTO shortTermEndowmentResponseDto = ProposalResponseDTO.builder()
 					.proposalID(proposal.getId()).proposalNo(proposal.getProposalNo())
-					.proposedPremium(proposal.getPremium()).build();
+					.proposedPremium(proposal.getProposedPremium()).build();
 
 			responseList.add(shortTermEndowmentResponseDto);
 		});

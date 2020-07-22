@@ -5,6 +5,7 @@ package org.tat.fni.api.domain;
 
 import java.util.Date;
 import java.util.List;
+
 import org.tat.fni.api.common.emumdata.InsuranceType;
 import org.tat.fni.api.common.emumdata.ProposalType;
 import org.tat.fni.api.common.interfaces.IInsuredItem;

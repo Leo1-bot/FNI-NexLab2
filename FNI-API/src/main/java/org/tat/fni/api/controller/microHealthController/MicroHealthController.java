@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.MedicalProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.microHealthDTO.MicroHealthDTO;
@@ -41,7 +41,7 @@ public class MicroHealthController {
 	@ApiOperation(value = "${MicroHealthController.submitproposal}")
 	public ResponseDTO<Object> submitproposal(@ApiParam("Submit MicroHealth Proposal") @Valid @RequestBody MicroHealthDTO microHealthDTO) {
 
-		List<MedicalProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		MicroHealthDTO dto = mapper.map(microHealthDTO, MicroHealthDTO.class);
 
 		// create micro health proposal
@@ -52,7 +52,7 @@ public class MicroHealthController {
 
 		proposallist.forEach(proposal -> {
 			ProposalResponseDTO microHealthResponseDto = ProposalResponseDTO.builder().proposalID(proposal.getId()).proposalNo(proposal.getProposalNo())
-					.proposedPremium(proposal.getTotalPremium()).build();
+					.proposedPremium(proposal.getProposedPremium()).build();
 			responseList.add(microHealthResponseDto);
 		});
 

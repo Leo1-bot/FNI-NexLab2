@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.responseDTO.ProposalResponseDTO;
@@ -41,7 +41,7 @@ public class SnakeBiteController {
 	@ApiOperation(value = "${SnakeBiteController.submitproposal}")
 	public ResponseDTO<Object> submitproposal(@ApiParam("Submit Snake Bite Life Proposal") @Valid @RequestBody SnakeBiteDTO snakeBiteDTO) {
 
-		List<LifeProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		SnakeBiteDTO dto = mapper.map(snakeBiteDTO, SnakeBiteDTO.class);
 
 		// create snake bite proposal

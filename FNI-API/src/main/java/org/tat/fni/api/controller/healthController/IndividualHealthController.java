@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.MedicalProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.healthInsuranceDTO.IndividualHealthInsuranceDTO;
@@ -41,7 +41,7 @@ public class IndividualHealthController {
 	@ApiOperation(value = "${IndividualHealthController.submitproposal}")
 	public ResponseDTO<Object> submitproposal(@ApiParam("Submit IndividualHealth Proposal") @Valid @RequestBody IndividualHealthInsuranceDTO individualHealthInsuranceDTO) {
 
-		List<MedicalProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		IndividualHealthInsuranceDTO dto = mapper.map(individualHealthInsuranceDTO, IndividualHealthInsuranceDTO.class);
 
 		// create individual health proposal
@@ -52,7 +52,7 @@ public class IndividualHealthController {
 
 		proposallist.forEach(proposal -> {
 			ProposalResponseDTO individualHealthResponseDto = ProposalResponseDTO.builder().proposalID(proposal.getId()).proposalNo(proposal.getProposalNo())
-					.proposedPremium(proposal.getTotalPremium()).build();
+					.proposedPremium(proposal.getProposedPremium()).build();
 			responseList.add(individualHealthResponseDto);
 		});
 

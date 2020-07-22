@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
-import org.tat.fni.api.domain.services.PolicyDataService.LifePolicyService;
 import org.tat.fni.api.dto.ResponseDTO;
-import org.tat.fni.api.dto.policyDataDTO.PolicyDataCriteria;
 import org.tat.fni.api.dto.responseDTO.ProposalResponseDTO;
-import org.tat.fni.api.dto.responseDTO.policyResponse.ResponseDataDTO;
 import org.tat.fni.api.dto.studentLifeDTO.StudentLifeDTO;
 
 import io.swagger.annotations.Api;
@@ -44,7 +41,7 @@ public class StudentLifeController {
 	@ApiOperation(value = "${StudentLifeController.submitproposal}")
 	public ResponseDTO<Object> submitproposal(@ApiParam("Submit Student Life Proposal") @Valid @RequestBody StudentLifeDTO studentLifeDTO) {
 
-		List<LifeProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		StudentLifeDTO dto = mapper.map(studentLifeDTO, StudentLifeDTO.class);
 
 		// create student life proposal

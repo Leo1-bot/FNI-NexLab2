@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.groupLifeDTO.GroupLifeDTO;
@@ -43,7 +43,7 @@ public class GroupLifeController {
 	public ResponseDTO<Object> submitproposal(
 			@ApiParam("Submit Group Life Proposal") @Valid @RequestBody GroupLifeDTO groupLifeDTO) {
 
-		List<LifeProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		GroupLifeDTO dto = mapper.map(groupLifeDTO, GroupLifeDTO.class);
 
 		// create group life proposal

@@ -28,6 +28,7 @@ import javax.persistence.Version;
 
 import org.tat.fni.api.common.IDInterceptor;
 import org.tat.fni.api.common.Name;
+import org.tat.fni.api.common.RegNoSorter;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.TableName;
 import org.tat.fni.api.common.UserRecorder;
@@ -35,6 +36,7 @@ import org.tat.fni.api.common.emumdata.ClassificationOfHealth;
 import org.tat.fni.api.common.emumdata.EndorsementStatus;
 import org.tat.fni.api.common.emumdata.Gender;
 import org.tat.fni.api.common.emumdata.IdType;
+import org.tat.fni.api.domain.MedicalProposalInsuredPersonAddOn;
 
 import lombok.Data;
 
@@ -151,11 +153,28 @@ public class LifeMedicalInsuredPerson {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "proposalInsuredPerson", orphanRemoval = true)
 	private List<LifeMedicalInsuredPersonBeneficiary> insuredPersonBeneficiariesList;
 	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "MEDIPROPOSALINSUREDPERSONID", referencedColumnName = "ID")
+	private List<MedicalProposalInsuredPersonAddOn> insuredPersonAddOnList;
+	
 	public List<LifeMedicalInsuredPersonBeneficiary> getInsuredPersonBeneficiariesList() {
 		if (this.insuredPersonBeneficiariesList == null) {
 			this.insuredPersonBeneficiariesList = new ArrayList<LifeMedicalInsuredPersonBeneficiary>();
 		}
 		return this.insuredPersonBeneficiariesList;
+	}
+	
+	/* sort by addOn Name */
+	public List<MedicalProposalInsuredPersonAddOn> getInsuredPersonAddOnList() {
+		if (insuredPersonAddOnList == null) {
+			insuredPersonAddOnList = new ArrayList<MedicalProposalInsuredPersonAddOn>();
+		}
+		if (insuredPersonAddOnList.isEmpty()) {
+			return insuredPersonAddOnList;
+		} else {
+			RegNoSorter<MedicalProposalInsuredPersonAddOn> sorter = new RegNoSorter<MedicalProposalInsuredPersonAddOn>(insuredPersonAddOnList);
+			return sorter.getSortedList();
+		}
 	}
 	
 }

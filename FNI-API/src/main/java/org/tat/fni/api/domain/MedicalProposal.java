@@ -3,6 +3,7 @@ package org.tat.fni.api.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -24,6 +25,7 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
 import org.tat.fni.api.common.IDInterceptor;
 import org.tat.fni.api.common.TableName;
 import org.tat.fni.api.common.UserRecorder;

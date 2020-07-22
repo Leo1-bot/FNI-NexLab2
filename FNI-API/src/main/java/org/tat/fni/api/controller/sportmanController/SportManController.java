@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.responseDTO.ProposalResponseDTO;
@@ -31,17 +31,19 @@ public class SportManController {
 
 	@Resource(name = "sportManProposalService")
 	private ILifeProductsProposalService lifeProposalService;
-	
+
 	@Autowired
 	private ModelMapper mapper;
 
 	@PostMapping("/submitproposal")
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "Something went wrong"), @ApiResponse(code = 403, message = "Access denied"),
-	@ApiResponse(code = 500, message = "Expired or invalid JWT token") })
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "Something went wrong"),
+			@ApiResponse(code = 403, message = "Access denied"),
+			@ApiResponse(code = 500, message = "Expired or invalid JWT token") })
 	@ApiOperation(value = "${SportManController.submitproposal}")
-	public ResponseDTO<Object> submitproposal(@ApiParam("Submit SportMan Proposal") @Valid @RequestBody SportManDTO sportManDTO) {
+	public ResponseDTO<Object> submitproposal(
+			@ApiParam("Submit SportMan Proposal") @Valid @RequestBody SportManDTO sportManDTO) {
 
-		List<LifeProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 
 		SportManDTO sportmandto = mapper.map(sportManDTO, SportManDTO.class);
 
@@ -52,8 +54,8 @@ public class SportManController {
 		List<ProposalResponseDTO> responseList = new ArrayList<ProposalResponseDTO>();
 
 		proposallist.forEach(proposal -> {
-			ProposalResponseDTO dto = ProposalResponseDTO.builder().proposalID(proposal.getId()).proposalNo(proposal.getProposalNo()).proposedPremium(proposal.getPremium())
-					.build();
+			ProposalResponseDTO dto = ProposalResponseDTO.builder().proposalID(proposal.getId())
+					.proposalNo(proposal.getProposalNo()).proposedPremium(proposal.getProposedPremium()).build();
 			responseList.add(dto);
 		});
 

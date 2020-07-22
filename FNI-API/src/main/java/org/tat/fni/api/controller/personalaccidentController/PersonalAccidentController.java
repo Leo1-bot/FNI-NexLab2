@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tat.fni.api.domain.lifeproposal.LifeProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.ILifeProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.personalAccidentDTO.PersonalAccidentDTO;
@@ -43,7 +43,7 @@ public class PersonalAccidentController {
 	public ResponseDTO<Object> submitproposal(
 			@ApiParam("Submit PersonalAccident Proposal") @Valid @RequestBody PersonalAccidentDTO personalAccidentDTO) {
 
-		List<LifeProposal> proposallist = new ArrayList<>();
+		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 
 		PersonalAccidentDTO dto = mapper.map(personalAccidentDTO, PersonalAccidentDTO.class);
 
@@ -55,7 +55,7 @@ public class PersonalAccidentController {
 
 		proposallist.forEach(proposal -> {
 			ProposalResponseDTO personalAccidentResponseDto = ProposalResponseDTO.builder().proposalID(proposal.getId())
-					.proposalNo(proposal.getProposalNo()).proposedPremium(proposal.getPremium()).build();
+					.proposalNo(proposal.getProposalNo()).proposedPremium(proposal.getProposedPremium()).build();
 			responseList.add(personalAccidentResponseDto);
 		});
 
