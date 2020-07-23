@@ -15,12 +15,12 @@ import org.tat.fni.api.common.Name;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.ProposalType;
-import org.tat.fni.api.domain.MedicalProposalInsuredPersonAddOn;
 import org.tat.fni.api.domain.Township;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPersonBeneficiary;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposalInsuredPersonAddOn;
 import org.tat.fni.api.domain.proposalTemp.repository.LifeMedicalProposalRepository;
 import org.tat.fni.api.domain.services.TownShipService;
 import org.tat.fni.api.domain.services.Interfaces.ICustomIdGenerator;
@@ -293,7 +293,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 	}
 
 	@Override
-	public MedicalProposalInsuredPersonAddOn createInsuredPersonAddon(InsuredPersonAddOnDTO addOnDTO,
+	public LifeMedicalProposalInsuredPersonAddOn createInsuredPersonAddon(InsuredPersonAddOnDTO addOnDTO,
 			LifeMedicalInsuredPerson insuredPerson) {
 		// TODO Auto-generated method stub
 		return null;

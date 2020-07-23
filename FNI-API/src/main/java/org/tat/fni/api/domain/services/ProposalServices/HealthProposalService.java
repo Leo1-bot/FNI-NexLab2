@@ -11,19 +11,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.tat.fni.api.common.KeyFactor;
 import org.tat.fni.api.common.Name;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.ProposalType;
-import org.tat.fni.api.domain.MedicalKeyFactorValue;
-import org.tat.fni.api.domain.MedicalProposalInsuredPersonAddOn;
 import org.tat.fni.api.domain.Township;
 import org.tat.fni.api.domain.addon.AddOn;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPersonBeneficiary;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposalInsuredPersonAddOn;
 import org.tat.fni.api.domain.proposalTemp.repository.LifeMedicalProposalRepository;
 import org.tat.fni.api.domain.services.AddOnService;
 import org.tat.fni.api.domain.services.TownShipService;
@@ -296,19 +294,18 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 	}
 
 	@Override
-	public MedicalProposalInsuredPersonAddOn createInsuredPersonAddon(InsuredPersonAddOnDTO addOnDTO,
+	public LifeMedicalProposalInsuredPersonAddOn createInsuredPersonAddon(InsuredPersonAddOnDTO addOnDTO,
 			LifeMedicalInsuredPerson insuredPerson) {
 
 		try {
 
 			AddOn addOn = addOnService.findAddOnById(addOnDTO.getMedicalProductAddOnId());
 
-			MedicalProposalInsuredPersonAddOn addon = new MedicalProposalInsuredPersonAddOn();
+			LifeMedicalProposalInsuredPersonAddOn addon = new LifeMedicalProposalInsuredPersonAddOn();
 			addon.setUnit(addOnDTO.getUnit());
 			addon.setSumInsured(insuredPerson.getSumInsured());
 			addon.setPremium(addOnDTO.getPremium());
 			addon.setAddOn(addOn);
-//			addon.setKeyFactorValueList(insuredPerson.getKeyFactorValueList());
 
 			return addon;
 
@@ -316,17 +313,6 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
 		}
 
-	}
-
-	/* create KeyfactorValue of addOn */
-	private List<MedicalKeyFactorValue> createNewKeyFactorValueList(AddOn addOn) {
-		List<MedicalKeyFactorValue> addOnKeyFactorValueList = new ArrayList<MedicalKeyFactorValue>();
-		MedicalKeyFactorValue fkv;
-		for (KeyFactor kf : addOn.getKeyFactorList()) {
-			fkv = new MedicalKeyFactorValue(kf);
-			addOnKeyFactorValueList.add(fkv);
-		}
-		return addOnKeyFactorValueList;
 	}
 
 	@Override

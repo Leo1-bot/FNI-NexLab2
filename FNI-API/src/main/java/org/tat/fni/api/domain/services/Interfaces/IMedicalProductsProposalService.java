@@ -2,10 +2,10 @@ package org.tat.fni.api.domain.services.Interfaces;
 
 import java.util.List;
 
-import org.tat.fni.api.domain.MedicalProposalInsuredPersonAddOn;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPersonBeneficiary;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposalInsuredPersonAddOn;
 import org.tat.fni.api.dto.InsuredPersonAddOnDTO;
 import org.tat.fni.api.dto.customerDTO.CustomerDto;
 
@@ -22,7 +22,7 @@ public interface IMedicalProductsProposalService {
 	public <T> LifeMedicalInsuredPersonBeneficiary createInsuredPersonBeneficiareis(
 			T insuredPersonBeneficiariesDto);
 
-	public MedicalProposalInsuredPersonAddOn createInsuredPersonAddon(InsuredPersonAddOnDTO addOnDTO,
+	public LifeMedicalProposalInsuredPersonAddOn createInsuredPersonAddon(InsuredPersonAddOnDTO addOnDTO,
 			LifeMedicalInsuredPerson insuredPerson);
 	
 	public <T> CustomerDto getCustomerFromInsuredPerson(T proposalInsuredPersonDTO);
