@@ -150,8 +150,11 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 
 			EndowmentLifeProposalInsuredPersonDTO dto = (EndowmentLifeProposalInsuredPersonDTO) proposalInsuredPersonDTO;
 
+			Optional<Township> townshipOptional = townShipService.findById(dto.getTownshipId());
+			
 			ResidentAddress residentAddress = new ResidentAddress();
 			residentAddress.setResidentAddress(dto.getResidentAddress());
+			residentAddress.setTownship(townshipOptional.get());
 
 			Name name = new Name();
 			name.setFirstName(dto.getFirstName());
