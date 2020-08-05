@@ -174,7 +174,7 @@ public class StudentLifeProposalService extends BaseService implements ILifeProd
 			insuredPerson.setName(name);
 			insuredPerson.setParentName(dto.getParentName());
 			insuredPerson.setParentIdType(IdType.valueOf(dto.getParentIdType()));
-			insuredPerson.setParentIdNo(dto.getParentName());
+			insuredPerson.setParentIdNo(dto.getParentIdNo());
 			insuredPerson.setParentDOB(dto.getParentDOB());
 			insuredPerson.setProductId(studentLifeProductId);
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
