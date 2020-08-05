@@ -60,6 +60,8 @@ public class LifeProposalService implements ILifeProposalService {
 
 	private int term = 0;
 	private String paymentTypeID = "";
+	
+	private String referenceId = "";
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -370,6 +372,7 @@ public class LifeProposalService implements ILifeProposalService {
 			boolean customerExistInMain = checkCustomerAvailability(dto);
 					
 			customer.setStatus(customerExistInMain ? true : false);
+			customer.setReferenceId(customerExistInMain ? this.referenceId : null);
 
 			customerTempRepository.save(customer);
 
@@ -410,6 +413,7 @@ public class LifeProposalService implements ILifeProposalService {
 			if (customer == null) {
 				return false;
 			}else {
+				this.referenceId = customer.getId();
 				return true;
 			}
 

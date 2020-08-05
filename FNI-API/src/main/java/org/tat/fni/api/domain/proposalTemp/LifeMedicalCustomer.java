@@ -128,5 +128,6 @@ public class LifeMedicalCustomer {
 	private String religionId;
 	private boolean isExisting;
 	private boolean status;
+	private String referenceId;
 	
 }
