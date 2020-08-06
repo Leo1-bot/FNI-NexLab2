@@ -20,7 +20,7 @@ public interface IMedicalProductsProposalService {
 	public <T> LifeMedicalInsuredPerson createInsuredPerson(T proposalInsuredPersonDTO, T proposalDto);
 
 	public <T> LifeMedicalInsuredPersonBeneficiary createInsuredPersonBeneficiareis(
-			T insuredPersonBeneficiariesDto);
+			T insuredPersonBeneficiariesDto, LifeMedicalInsuredPerson insuredPerson);
 
 	public LifeMedicalProposalInsuredPersonAddOn createInsuredPersonAddon(InsuredPersonAddOnDTO addOnDTO,
 			LifeMedicalInsuredPerson insuredPerson);

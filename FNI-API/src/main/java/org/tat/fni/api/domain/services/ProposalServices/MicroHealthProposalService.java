@@ -182,7 +182,7 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 //						.add(medicalProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
 //			});
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
-				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary));
+				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});
 
 			return insuredPerson;
@@ -193,7 +193,7 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 
 	@Override
 	public <T> LifeMedicalInsuredPersonBeneficiary createInsuredPersonBeneficiareis(
-			T insuredPersonBeneficiariesDto) {
+			T insuredPersonBeneficiariesDto, LifeMedicalInsuredPerson insuredPerson) {
 		try {
 			MicroHealthProposalInsuredPersonBeneficiariesDTO dto = (MicroHealthProposalInsuredPersonBeneficiariesDTO) insuredPersonBeneficiariesDto;
 
@@ -218,6 +218,7 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 			beneficiary.setResidentAddress(residentAddress);
 			beneficiary.setName(name);
 			beneficiary.setRelationshipId(dto.getRelationshipId());
+			beneficiary.setProposalInsuredPerson(insuredPerson);
 			
 			String beneficiaryNo = customIdRepo.getNextId("HEALTH_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);

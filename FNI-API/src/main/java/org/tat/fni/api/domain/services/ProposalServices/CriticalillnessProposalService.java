@@ -245,7 +245,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 //			});
 
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
-				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary));
+				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});
 
 			return insuredPerson;
@@ -256,7 +256,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 
 	@Override
 	public <T> LifeMedicalInsuredPersonBeneficiary createInsuredPersonBeneficiareis(
-			T insuredPersonBeneficiariesDto) {
+			T insuredPersonBeneficiariesDto, LifeMedicalInsuredPerson insuredPerson) {
 		try {
 			CriticalillnessProposalInsuredPersonBeneficiariesDTO dto = (CriticalillnessProposalInsuredPersonBeneficiariesDTO) insuredPersonBeneficiariesDto;
 
@@ -281,6 +281,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 			beneficiary.setResidentAddress(residentAddress);
 			beneficiary.setName(name);
 			beneficiary.setRelationshipId(dto.getRelationshipId());
+			beneficiary.setProposalInsuredPerson(insuredPerson);
 			
 
 			String beneficiaryNo = customIdRepo.getNextId("HEALTH_BENEFICIARY_NO", null);
