@@ -211,6 +211,7 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 			LifeMedicalInsuredPersonBeneficiary beneficiary = new LifeMedicalInsuredPersonBeneficiary();
 			beneficiary.setInitialId(dto.getInitialId());
 			beneficiary.setPercentage(dto.getPercentage());
+			beneficiary.setFatherName(dto.getFatherName());
 			beneficiary.setIdType(IdType.valueOf(dto.getIdType()));
 			beneficiary.setIdNo(dto.getIdNo());
 			beneficiary.setResidentAddress(residentAddress);

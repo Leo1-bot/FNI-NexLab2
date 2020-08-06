@@ -275,6 +275,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 			beneficiary.setInitialId(dto.getInitialId());
 			beneficiary.setDateOfBirth(dto.getDateOfBirth());
 			beneficiary.setPercentage(dto.getPercentage());
+			beneficiary.setFatherName(dto.getFatherName());
 			beneficiary.setIdType(IdType.valueOf(dto.getIdType()));
 			beneficiary.setIdNo(dto.getIdNo());
 			beneficiary.setResidentAddress(residentAddress);

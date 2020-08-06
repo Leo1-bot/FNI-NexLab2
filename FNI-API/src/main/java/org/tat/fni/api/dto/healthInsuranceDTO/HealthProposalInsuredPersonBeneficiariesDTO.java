@@ -35,6 +35,9 @@ public class HealthProposalInsuredPersonBeneficiariesDTO {
 	@JsonDeserialize(using = DateHandler.class)
 	private Date dateOfBirth;
 	
+	@ApiModelProperty(position = 5, required = false)
+	private String fatherName;
+	
 	@ApiModelProperty(position = 6, example = "NRCNO", required = true)
 	@NotBlank(message = "idType is mandatory")
 	private String idType;

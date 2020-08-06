@@ -19,6 +19,9 @@ public class MicroHealthProposalInsuredPersonBeneficiariesDTO {
 	@ApiModelProperty(position = 0, example = "U", required = true)
 	@NotBlank(message = "InitialId is mandatory")
 	private String initialId;
+	
+	@ApiModelProperty(position = 1, required = false)
+	private String fatherName;
 
 	@ApiModelProperty(position = 2, example = "Aung", required = true)
 	@NotBlank(message = "firstName is mandatory")
@@ -35,7 +38,7 @@ public class MicroHealthProposalInsuredPersonBeneficiariesDTO {
 	@JsonDeserialize(using = DateHandler.class)
 	private Date dateOfBirth;
 
-	@ApiModelProperty(position = 7, example = "098166", required = true)
+	@ApiModelProperty(position = 6, example = "098166", required = true)
 	@NotBlank(message = "idNo is mandatory")
 	private String idNo;
 
