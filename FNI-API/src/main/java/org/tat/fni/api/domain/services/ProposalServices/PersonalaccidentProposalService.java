@@ -39,7 +39,7 @@ import org.tat.fni.api.exception.SystemException;
 public class PersonalaccidentProposalService extends BaseService implements ILifeProductsProposalService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private LifeMedicalProposalRepository lifeMedicalProposalRepo;
 
@@ -54,7 +54,7 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 
 	@Value("${personalaccidentProductId}")
 	private String personalaccidentProductId;
-	
+
 	@Value("${branchId}")
 	private String branchId;
 
@@ -81,9 +81,9 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 //
 //			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
 //			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-			
+
 			return personalaccidentProposalList;
-			
+
 		} catch (Exception e) {
 			logger.error("JOEERROR:" + e.getMessage(), e);
 			throw e;
@@ -98,10 +98,11 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 
 		try {
 			personalaccidentdto.getProposalInsuredPersonList().forEach(insuredPerson -> {
-				
+
 				LifeMedicalProposal lifeProposal = new LifeMedicalProposal();
 
-				LifeMedicalCustomer customer = lifeProposalService.checkCustomerAvailabilityTemp(personalaccidentdto.getCustomer());
+				LifeMedicalCustomer customer = lifeProposalService
+						.checkCustomerAvailabilityTemp(personalaccidentdto.getCustomer());
 
 				if (customer == null) {
 					lifeProposal.setCustomer(lifeProposalService.createNewCustomer(personalaccidentdto.getCustomer()));
@@ -148,11 +149,11 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 			PersonalAccidentProposalInsuredPersonDTO dto = (PersonalAccidentProposalInsuredPersonDTO) proposalInsuredPersonDTO;
 
 			Optional<Township> townshipOptional = townShipService.findById(dto.getTownshipId());
-			
+
 			ResidentAddress residentAddress = new ResidentAddress();
 			residentAddress.setResidentAddress(dto.getResidentAddress());
 			residentAddress.setTownship(townshipOptional.get());
-			
+
 			Name name = new Name();
 			name.setFirstName(dto.getFirstName());
 			name.setMiddleName(dto.getMiddleName());
@@ -182,9 +183,10 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 //				insuredPerson.getKeyFactorValueList()
 //						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
 //			});
-			
+
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
-				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
+				insuredPerson.getInsuredPersonBeneficiariesList()
+						.add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});
 
 			return insuredPerson;
@@ -201,11 +203,11 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 			PersonalAccidentProposalInsuredPersonBeneficiariesDTO dto = (PersonalAccidentProposalInsuredPersonBeneficiariesDTO) insuredPersonBeneficiariesDto;
 
 			Optional<Township> townshipOptional = townShipService.findById(dto.getTownshipId());
-			
+
 			ResidentAddress residentAddress = new ResidentAddress();
 			residentAddress.setResidentAddress(dto.getResidentAddress());
 			residentAddress.setTownship(townshipOptional.get());
-			
+
 			Name name = new Name();
 			name.setFirstName(dto.getFirstName());
 			name.setMiddleName(dto.getMiddleName());
@@ -220,12 +222,12 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 			beneficiary.setName(name);
 			beneficiary.setProposalInsuredPerson(insuredPerson);
 			beneficiary.setRelationshipId(dto.getRelationshipId());
-			
+
 			String beneficiaryNo = customIdRepo.getNextId("LIFE_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);
-			
+
 			return beneficiary;
-			
+
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
 		}
