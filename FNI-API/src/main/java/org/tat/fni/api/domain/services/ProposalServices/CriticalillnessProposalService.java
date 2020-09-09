@@ -101,11 +101,9 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 
 		List<LifeMedicalProposal> medicalProposalList = new ArrayList<>();
 		IndividualCriticalIllnessDTO criticalIllnessDTO = (IndividualCriticalIllnessDTO) proposalDto;
+		LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
 
 		try {
-			criticalIllnessDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
-
-				LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
 
 				LifeMedicalCustomer customer = medicalProposalService
 						.checkCustomerAvailabilityTemp(criticalIllnessDTO.getCustomer());
@@ -120,8 +118,11 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 //				medicalProposalService.setPeriodMonthForKeyFacterValue(criticalIllnessDTO.getPeriodMonth(),
 //						criticalIllnessDTO.getPaymentTypeId());
 
-				medicalProposal.getMedicalProposalInsuredPersonList()
-						.add(createInsuredPerson(insuredPerson, criticalIllnessDTO));
+				criticalIllnessDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
+					medicalProposal.getMedicalProposalInsuredPersonList()
+							.add(createInsuredPerson(insuredPerson, criticalIllnessDTO));
+				});
+				
 				medicalProposal.setComplete(false);
 				medicalProposal.setHealthType(criticalIllnessDTO.getHealthType());
 				medicalProposal.setCustomerType(criticalIllnessDTO.getCustomerType());
@@ -145,7 +146,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 //				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
-			});
+			
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
 		}
@@ -157,12 +158,10 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 
 		List<LifeMedicalProposal> medicalProposalList = new ArrayList<>();
 		GroupCriticalIllnessDTO criticalIllnessDTO = (GroupCriticalIllnessDTO) proposalDto;
+		LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
 
 		try {
-			criticalIllnessDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
-
-				LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
-
+			
 				LifeMedicalCustomer customer = medicalProposalService
 						.checkCustomerAvailabilityTemp(criticalIllnessDTO.getCustomer());
 
@@ -176,8 +175,11 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 //				medicalProposalService.setPeriodMonthForKeyFacterValue(criticalIllnessDTO.getPeriodMonth(),
 //						criticalIllnessDTO.getPaymentTypeId());
 
-				medicalProposal.getMedicalProposalInsuredPersonList()
-						.add(createInsuredPerson(insuredPerson, criticalIllnessDTO));
+				criticalIllnessDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
+					medicalProposal.getMedicalProposalInsuredPersonList()
+							.add(createInsuredPerson(insuredPerson, criticalIllnessDTO));
+				});
+				
 				medicalProposal.setComplete(false);
 				medicalProposal.setHealthType(criticalIllnessDTO.getHealthType());
 				medicalProposal.setCustomerType(criticalIllnessDTO.getCustomerType());
@@ -201,7 +203,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 //				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
-			});
+			
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
 		}

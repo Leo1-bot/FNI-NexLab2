@@ -104,10 +104,11 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 
 		List<LifeMedicalProposal> medicalProposalList = new ArrayList<>();
 		IndividualHealthInsuranceDTO individualHealthInsuranceDTO = (IndividualHealthInsuranceDTO) proposalDto;
+		LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
 
 		try {
-			individualHealthInsuranceDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
-				LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
+			
+				
 
 				LifeMedicalCustomer customer = medicalProposalService
 						.checkCustomerAvailabilityTemp(individualHealthInsuranceDTO.getCustomer());
@@ -122,8 +123,11 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 //				medicalProposalService.setPeriodMonthForKeyFacterValue(individualHealthInsuranceDTO.getPeriodMonth(),
 //						individualHealthInsuranceDTO.getPaymentTypeId());
 
-				medicalProposal.getMedicalProposalInsuredPersonList()
-						.add(createInsuredPerson(insuredPerson, individualHealthInsuranceDTO));
+				individualHealthInsuranceDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
+					medicalProposal.getMedicalProposalInsuredPersonList()
+							.add(createInsuredPerson(insuredPerson, individualHealthInsuranceDTO));
+				});
+				
 				medicalProposal.setComplete(false);
 				medicalProposal.setHealthType(individualHealthInsuranceDTO.getHealthType());
 				medicalProposal.setCustomerType(individualHealthInsuranceDTO.getCustomerType());
@@ -146,7 +150,7 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 //				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
-			});
+			
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
 		}
@@ -158,10 +162,9 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 
 		List<LifeMedicalProposal> medicalProposalList = new ArrayList<>();
 		GroupHealthInsuranceDTO groupHealthInsuranceDTO = (GroupHealthInsuranceDTO) proposalDto;
+		LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
 
 		try {
-			groupHealthInsuranceDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
-				LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
 
 				LifeMedicalCustomer customer = medicalProposalService
 						.checkCustomerAvailabilityTemp(groupHealthInsuranceDTO.getCustomer());
@@ -176,8 +179,11 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 //				medicalProposalService.setPeriodMonthForKeyFacterValue(individualHealthInsuranceDTO.getPeriodMonth(),
 //						individualHealthInsuranceDTO.getPaymentTypeId());
 
-				medicalProposal.getMedicalProposalInsuredPersonList()
-						.add(createInsuredPerson(insuredPerson, groupHealthInsuranceDTO));
+				groupHealthInsuranceDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
+					medicalProposal.getMedicalProposalInsuredPersonList()
+							.add(createInsuredPerson(insuredPerson, groupHealthInsuranceDTO));
+				});
+				
 				medicalProposal.setComplete(false);
 				medicalProposal.setHealthType(groupHealthInsuranceDTO.getHealthType());
 				medicalProposal.setCustomerType(groupHealthInsuranceDTO.getCustomerType());
@@ -200,7 +206,7 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 //				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
-			});
+			
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
 		}

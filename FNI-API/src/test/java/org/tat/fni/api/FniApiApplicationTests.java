@@ -1,13 +1,13 @@
-package org.tat.gginl.api;
+package org.tat.fni.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GginlApiApplicationTests {
+class FniApiApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void test() {
 	}
 
 }

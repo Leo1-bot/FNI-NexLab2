@@ -16,7 +16,6 @@ import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProductsProposalService;
 import org.tat.fni.api.dto.ResponseDTO;
 import org.tat.fni.api.dto.healthInsuranceDTO.GroupHealthInsuranceDTO;
-import org.tat.fni.api.dto.healthInsuranceDTO.IndividualHealthInsuranceDTO;
 import org.tat.fni.api.dto.responseDTO.ProposalResponseDTO;
 
 import io.swagger.annotations.Api;
@@ -43,7 +42,7 @@ public class GroupHealthController {
 	public ResponseDTO<Object> submitproposal(@ApiParam("Submit IndividualHealth Proposal") @Valid @RequestBody GroupHealthInsuranceDTO groupHealthInsuranceDTO) {
 
 		List<LifeMedicalProposal> proposallist = new ArrayList<>();
-		IndividualHealthInsuranceDTO dto = mapper.map(groupHealthInsuranceDTO, IndividualHealthInsuranceDTO.class);
+		GroupHealthInsuranceDTO dto = mapper.map(groupHealthInsuranceDTO, GroupHealthInsuranceDTO.class);
 
 		// create individual health proposal
 		proposallist = medicalProposalService.createDtoToProposal(dto);

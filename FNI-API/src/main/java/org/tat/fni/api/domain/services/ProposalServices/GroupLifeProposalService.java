@@ -94,11 +94,9 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 		GroupLifeDTO groupLifeDTO = (GroupLifeDTO) proposalDto;
 
 		List<LifeMedicalProposal> lifeProposalList = new ArrayList<>();
+		LifeMedicalProposal lifeProposal = new LifeMedicalProposal();
 
 		try {
-			groupLifeDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
-
-				LifeMedicalProposal lifeProposal = new LifeMedicalProposal();
 
 				LifeMedicalCustomer customer = lifeProposalService.checkCustomerAvailabilityTemp(groupLifeDTO.getCustomer());
 
@@ -110,8 +108,11 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 
 //				lifeProposalService.setPeriodMonthForKeyFacterValue(groupLifeDTO.getPeriodMonth(),
 //						groupLifeDTO.getPaymentTypeId());
-
-				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
+				
+				groupLifeDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
+					lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
+				});
+				
 				lifeProposal.setComplete(false);
 				lifeProposal.setStatus(false);
 				lifeProposal.setProposalType(ProposalType.UNDERWRITING);
@@ -131,10 +132,8 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 
 //				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
 //				lifeProposalService.calculateTermPremium(lifeProposal);
-
-				lifeProposalList.add(lifeProposal);
-
-			});
+			
+			lifeProposalList.add(lifeProposal);
 
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
