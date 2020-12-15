@@ -216,42 +216,42 @@ public class MedicalProposalService implements IMedicalProposalService {
 					dto.getResidentAddress() == null ? null : dto.getResidentAddress().getResidentAddress());
 			residentAddress.setTownship(residentTownshipOptional.isPresent() ? residentTownshipOptional.get() : null);
 
-			ContentInfo contentInfo = new ContentInfo();
-			contentInfo.setEmail(dto.getContentInfo() == null ? null : dto.getContentInfo().getEmail());
-			contentInfo.setFax(dto.getContentInfo() == null ? null : dto.getContentInfo().getFax());
-			contentInfo.setMobile(dto.getContentInfo() == null ? null : dto.getContentInfo().getMobile());
-			contentInfo.setPhone(dto.getContentInfo() == null ? null : dto.getContentInfo().getPhone());
+//			ContentInfo contentInfo = new ContentInfo();
+//			contentInfo.setEmail(dto.getContentInfo() == null ? null : dto.getContentInfo().getEmail());
+//			contentInfo.setFax(dto.getContentInfo() == null ? null : dto.getContentInfo().getFax());
+//			contentInfo.setMobile(dto.getContentInfo() == null ? null : dto.getContentInfo().getMobile());
+//			contentInfo.setPhone(dto.getContentInfo() == null ? null : dto.getContentInfo().getPhone());
 
 			Name name = new Name();
 			name.setFirstName(dto.getName() == null ? null : dto.getName().getFirstName());
 			name.setMiddleName(dto.getName() == null ? null : dto.getName().getMiddleName());
 			name.setLastName(dto.getName() == null ? null : dto.getName().getLastName());
 
-			List<LifeMedicalCustomerFamily> familyInfo = new ArrayList<LifeMedicalCustomerFamily>();
+//			List<LifeMedicalCustomerFamily> familyInfo = new ArrayList<LifeMedicalCustomerFamily>();
 
-			if (dto.getFamilyInfoList() != null) {
-				dto.getFamilyInfoList().forEach(familydto -> {
-
-					Name familyName = new Name();
-
-					familyName.setFirstName(familydto.getName().getFirstName());
-					familyName.setMiddleName(familydto.getName().getMiddleName());
-					familyName.setLastName(familydto.getName().getLastName());
-
-					LifeMedicalCustomerFamily family = new LifeMedicalCustomerFamily();
-					family.setInitialId(familydto.getInitialId());
-					family.setIdNo(familydto.getIdNo());
-					family.setDateOfBirth(familydto.getDateOfBirth());
-					family.setName(familyName);
-					family.setIdType(familydto.getIdType());
-					family.setRelationshipId(familydto.getRelationShipId());
-					family.setIndustryId(familydto.getIndustryId());
-					family.setOccupationId(familydto.getOccupationId());
-					
-					familyInfo.add(family);
-
-				});
-			}
+//			if (dto.getFamilyInfoList() != null) {
+//				dto.getFamilyInfoList().forEach(familydto -> {
+//
+//					Name familyName = new Name();
+//
+//					familyName.setFirstName(familydto.getName().getFirstName());
+//					familyName.setMiddleName(familydto.getName().getMiddleName());
+//					familyName.setLastName(familydto.getName().getLastName());
+//
+//					LifeMedicalCustomerFamily family = new LifeMedicalCustomerFamily();
+//					family.setInitialId(familydto.getInitialId());
+//					family.setIdNo(familydto.getIdNo());
+//					family.setDateOfBirth(familydto.getDateOfBirth());
+//					family.setName(familyName);
+//					family.setIdType(familydto.getIdType());
+//					family.setRelationshipId(familydto.getRelationShipId());
+//					family.setIndustryId(familydto.getIndustryId());
+//					family.setOccupationId(familydto.getOccupationId());
+//					
+//					familyInfo.add(family);
+//
+//				});
+//			}
 
 			LifeMedicalCustomer customer = new LifeMedicalCustomer();
 			customer.setInitialId(dto.getInitialId());
@@ -267,9 +267,9 @@ public class MedicalProposalService implements IMedicalProposalService {
 			customer.setOfficeAddress(officeAddress);
 			customer.setPermanentAddress(permanentAddress);
 			customer.setResidentAddress(residentAddress);
-			customer.setContentInfo(contentInfo);
+			customer.setContentInfo(null);
 			customer.setName(name);
-			customer.setFamilyInfo(familyInfo);
+			customer.setFamilyInfo(null);
 			customer.setQualificationId(dto.getQualificationId());
 			customer.setReligionId(dto.getReligionId());
 			customer.setOccupationId(dto.getOccupationId());

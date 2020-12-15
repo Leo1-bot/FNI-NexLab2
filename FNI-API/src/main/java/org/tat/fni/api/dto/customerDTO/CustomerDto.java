@@ -66,17 +66,17 @@ public class CustomerDto implements Serializable {
 	@NotNull(message = "ResidentAddress is mandatory")
 	private ResidentAddressDto residentAddress;
 
-	@Valid
-	@ApiModelProperty(position = 11, required = true)
-	private ContentInfoDto contentInfo;
+//	@Valid
+//	@ApiModelProperty(position = 11, required = true)
+//	private ContentInfoDto contentInfo;
 
 	@Valid
 	@ApiModelProperty(position = 12, required = true)
 	@NotNull(message = "Name is mandatory")
 	private NameDto name;
 
-	@ApiModelProperty(position = 13, required = false)
-	private List<FamilyInfoDto> familyInfoList;
+//	@ApiModelProperty(position = 13, required = false)
+//	private List<FamilyInfoDto> familyInfoList;
 
 	@ApiModelProperty(position = 14, example="ISSYS016001000009576109032019", required = false)
 	private String qualificationId;
