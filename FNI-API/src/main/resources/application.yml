@@ -1,10 +1,10 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://acehawksvr3;databaseName=FNILP
-#    url: jdbc:sqlserver://DESKTOP-E1RV399;databaseName=FNILP
+#    url: jdbc:sqlserver://acehawksvr3;databaseName=FNILP
+    url: jdbc:sqlserver://DESKTOP-E1RV399;databaseName=FNILP
     username: sa
-    password: 123@ace
-#    password: mssql2017
+#    password: 123@ace
+    password: mssql2017
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jackson:
     date-format: dd.MM.yyyy

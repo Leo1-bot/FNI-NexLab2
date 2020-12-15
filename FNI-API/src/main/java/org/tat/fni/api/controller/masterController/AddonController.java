@@ -37,16 +37,16 @@ public class AddonController {
 
 		List<AddOn> resultList = new ArrayList<AddOn>();
 
-		resultList = addonService.findAllAddOn();
+		resultList = addonService.findAddOnForMedical();
 
-		List<AddonDTO> agentList = new ArrayList<AddonDTO>();
+		List<AddonDTO> addOnList = new ArrayList<AddonDTO>();
 
 		resultList.forEach(result -> {
 			AddonDTO agentDTO = AddonDTO.builder().id(result.getId()).name(result.getName()).build();
-			agentList.add(agentDTO);
+			addOnList.add(agentDTO);
 		});
 
-		ResponseDTO<Object> responseDTO = ResponseDTO.builder().status("Success").responseBody(agentList).build();
+		ResponseDTO<Object> responseDTO = ResponseDTO.builder().status("Success").responseBody(addOnList).build();
 
 		return responseDTO;
 	}

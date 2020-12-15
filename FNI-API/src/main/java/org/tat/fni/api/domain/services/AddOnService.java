@@ -32,7 +32,7 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			addOnDAO.insert(addOn);
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to add a new AddOn", e);
+			throw new SystemException(e.getErrorCode(), "Failed to add a new AddOn", e);
 		}
 	}
 
@@ -41,7 +41,7 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			addOnDAO.update(addOn);
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to update a AddOn", e);
+			throw new SystemException(e.getErrorCode(), "Failed to update a AddOn", e);
 		}
 	}
 
@@ -50,7 +50,7 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			addOnDAO.delete(addOn);
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to delete a AddOn", e);
+			throw new SystemException(e.getErrorCode(), "Failed to delete a AddOn", e);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			result = addOnDAO.findAll();
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to find all of AddOn)", e);
+			throw new SystemException(e.getErrorCode(), "Failed to find all of AddOn)", e);
 		}
 		return result;
 	}
@@ -71,7 +71,7 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			result = addOnDAO.findById(id);
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to find a AddOn (ID : " + id + ")", e);
+			throw new SystemException(e.getErrorCode(), "Failed to find a AddOn (ID : " + id + ")", e);
 		}
 		return result;
 	}
@@ -82,7 +82,7 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			result = addOnDAO.findByCriteria(criteria);
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to find AddOn by criteria " + criteria, e);
+			throw new SystemException(e.getErrorCode(), "Failed to find AddOn by criteria " + criteria, e);
 		}
 		return result;
 	}
@@ -93,7 +93,7 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			result = addOnDAO.findPremiumRateOfAddOn();
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to find AddOn with Premium Rate", e);
+			throw new SystemException(e.getErrorCode(), "Failed to find AddOn with Premium Rate", e);
 		}
 
 		return result;
@@ -105,7 +105,20 @@ public class AddOnService extends BaseService implements IAddOnService {
 		try {
 			result = addOnDAO.findAddOnByProductId(productId);
 		} catch (DAOException e) {
-			throw new SystemException(e.getErrorCode(), "Faield to find AddOn with Premium Rate By Product Id", e);
+			throw new SystemException(e.getErrorCode(), "Failed to find AddOn with Premium Rate By Product Id", e);
+		}
+
+		return result;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<AddOn> findAddOnForMedical() {
+		List<AddOn> result = null;
+		try {
+			result = addOnDAO.findAddOnForMedical();
+		} catch (DAOException e) {
+			throw new SystemException(e.getErrorCode(), "Failed to find AddOn", e);
 		}
 
 		return result;

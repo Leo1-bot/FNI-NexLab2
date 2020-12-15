@@ -133,4 +133,22 @@ public class AddOnDAO extends BasicDAO implements IAddOnDAO {
 		}
 		return new ArrayList<AddOn>(resultMap.values());
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<AddOn> findAddOnForMedical() throws DAOException {
+		List<AddOn> result = null;
+		try {
+			StringBuffer buffer = new StringBuffer();
+			buffer.append("Select a from AddOn a ");
+			buffer.append("where a.productContent.id = 'ISPRD005001000000008123042019' ");
+			buffer.append("or a.productContent.id = 'ISPRD005001000000008223042019'");
+			Query query = em.createQuery(buffer.toString());
+			result = query.getResultList();
+			em.flush();
+		} catch (PersistenceException pe) {
+			throw translate("Failed to find Premium Rate of AddOn.", pe);
+		}
+		return result;
+	}
 }

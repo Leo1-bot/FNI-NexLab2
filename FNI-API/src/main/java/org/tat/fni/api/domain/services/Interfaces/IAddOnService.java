@@ -29,4 +29,6 @@ public interface IAddOnService {
 	public List<AddOn> findPremiumRate();
 
 	public List<AddOn> findPremiumRateByProductId(String productId);
+	
+	public List<AddOn> findAddOnForMedical();
 }

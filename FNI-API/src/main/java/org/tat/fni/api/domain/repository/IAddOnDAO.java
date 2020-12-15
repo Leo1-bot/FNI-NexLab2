@@ -30,4 +30,6 @@ public interface IAddOnDAO {
 	public List<AddOn> findPremiumRateOfAddOn() throws DAOException;
 
 	public List<AddOn> findAddOnByProductId(String productId) throws DAOException;
+	
+	public List<AddOn> findAddOnForMedical() throws DAOException;
 }
