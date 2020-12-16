@@ -366,7 +366,7 @@ public class LifeProposalService implements ILifeProposalService {
 			customer.setFamilyInfo(null);
 			customer.setQualificationId(dto.getQualificationId());
 			customer.setReligionId(dto.getReligionId());
-			customer.setOccupationId(dto.getOccupationId());
+			customer.setOccupationId(null);
 			customer.setNationalityId(dto.getCountryId());
 			
 			boolean customerExistInMain = checkCustomerAvailability(dto);

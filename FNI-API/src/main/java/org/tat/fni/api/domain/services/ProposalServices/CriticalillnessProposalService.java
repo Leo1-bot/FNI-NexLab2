@@ -323,7 +323,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 		customer.setIdNo(dto.getIdNo());
 		customer.setIdType(dto.getIdType());
 		customer.setResidentAddress(residentAddress);
-		customer.setOccupationId(dto.getOccupationID());
+//		customer.setOccupationId(dto.getOccupationID());
 		customer.setGender(dto.getGender());
 
 		return customer;
