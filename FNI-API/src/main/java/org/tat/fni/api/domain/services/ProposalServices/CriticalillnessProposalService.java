@@ -15,6 +15,8 @@ import org.tat.fni.api.common.Name;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.ProposalType;
+import org.tat.fni.api.domain.CustomerType;
+import org.tat.fni.api.domain.HealthType;
 import org.tat.fni.api.domain.Township;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
@@ -124,8 +126,8 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				});
 				
 				medicalProposal.setComplete(false);
-				medicalProposal.setHealthType(criticalIllnessDTO.getHealthType());
-				medicalProposal.setCustomerType(criticalIllnessDTO.getCustomerType());
+				medicalProposal.setHealthType(HealthType.CRITICALILLNESS);
+				medicalProposal.setCustomerType(CustomerType.INDIVIDUALCUSTOMER);
 				medicalProposal.setStatus(false);
 				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth());
 				medicalProposal.setProposalType(ProposalType.UNDERWRITING);
@@ -138,7 +140,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
 				medicalProposal.setStartDate(criticalIllnessDTO.getStartDate());
 				medicalProposal.setEndDate(criticalIllnessDTO.getEndDate());
-				medicalProposal.setSaleChannelType(criticalIllnessDTO.getSaleChannelType());
+				medicalProposal.setSaleChannelType(null);
 				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
 
@@ -223,7 +225,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 					proposalDto instanceof IndividualCriticalIllnessDTO ? individualCriticalillnessProductID
 							: groupCriticalillnessProductID);
 			insuredPerson.setUnit(dto.getUnit());
-			insuredPerson.setNeedMedicalCheckup(dto.isNeedMedicalCheckup());
+			insuredPerson.setNeedMedicalCheckup(false);
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
 			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());

@@ -14,9 +14,9 @@ public class InsuredPersonAddOnDTO {
 	@NotNull(message = "unit is mandatory")
 	private int unit;
 	
-	@ApiModelProperty(position = 1, example = "26400", required = true)
-	@NotNull(message = "premium is mandatory")
-	private double premium;
+//	@ApiModelProperty(position = 1, example = "26400", required = true)
+//	@NotNull(message = "premium is mandatory")
+//	private double premium;
 	
 	@ApiModelProperty(position = 2, example = "ISSYS014001000009603323042019", required = true)
 	@NotBlank(message = "medicalProductAddOnId is mandatory")

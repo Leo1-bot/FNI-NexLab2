@@ -26,17 +26,17 @@ public class IndividualHealthInsuranceDTO {
 	@NotNull(message = "Period Month is mandatory")
 	private int periodMonth;
 
-	@ApiModelProperty(position = 1, example = "AGENT", required = true)
-	@NotNull(message = "SaleChannel Type is mandatory")
-	private SaleChannelType saleChannelType;
+//	@ApiModelProperty(position = 1, example = "AGENT", required = true)
+//	@NotNull(message = "SaleChannel Type is mandatory")
+//	private SaleChannelType saleChannelType;
 	
-	@ApiModelProperty(position = 2, example = "HEALTH", required = true)
-	@NotNull(message = "Health Type is mandatory")
-	private HealthType healthType;
+//	@ApiModelProperty(position = 2, example = "HEALTH", required = true)
+//	@NotNull(message = "Health Type is mandatory")
+//	private HealthType healthType;
 
-	@ApiModelProperty(position = 3, example = "INDIVIDUALCUSTOMER", required = true)
-	@NotNull(message = "Customer Type is mandatory")
-	private CustomerType customerType;
+//	@ApiModelProperty(position = 3, example = "INDIVIDUALCUSTOMER", required = true)
+//	@NotNull(message = "Customer Type is mandatory")
+//	private CustomerType customerType;
 	
 	@Valid
 	@ApiModelProperty(position = 4, required = true)

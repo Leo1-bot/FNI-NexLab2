@@ -43,8 +43,8 @@ public class CriticalillnessProposalInsuredPersonDTO {
 	@NotBlank(message = "fatherName is mandatory")
 	private String fatherName;
 
-	@ApiModelProperty(position = 7, example = "true")
-	private boolean needMedicalCheckup;
+//	@ApiModelProperty(position = 7, example = "true")
+//	private boolean needMedicalCheckup;
 
 	@ApiModelProperty(position = 8, example = "1999-12-16", required = true)
 	@NotNull(message = "dateOfBirth is mandatory")

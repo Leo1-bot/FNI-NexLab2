@@ -173,8 +173,8 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 			insuredPerson.setGender(Gender.valueOf(dto.getGender()));
 			insuredPerson.setResidentAddress(residentAddress);
 			insuredPerson.setName(name);
-			insuredPerson.setOccupationId(dto.getOccupationID());
-			insuredPerson.setRiskyOccupationId(dto.getRiskoccupationID());
+			insuredPerson.setOccupationId(null);
+			insuredPerson.setRiskyOccupationId(null);
 			insuredPerson.setTypesOfSportId(dto.getTypeofSportId());
 
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);

@@ -176,9 +176,9 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 			insuredPerson.setGender(Gender.valueOf(dto.getGender()));
 			insuredPerson.setResidentAddress(residentAddress);
 			insuredPerson.setName(name);
-			insuredPerson.setOccupationId(dto.getOccupationID());
+			insuredPerson.setOccupationId(null);
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
-			insuredPerson.setRiskyOccupationId(dto.getRiskyOccupationID());
+			insuredPerson.setRiskyOccupationId(null);
 
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);

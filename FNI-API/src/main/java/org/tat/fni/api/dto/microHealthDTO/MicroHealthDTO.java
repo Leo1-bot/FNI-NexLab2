@@ -24,13 +24,13 @@ public class MicroHealthDTO {
 	@NotNull(message = "Period Month is mandatory")
 	private int periodMonth;
 
-	@ApiModelProperty(position = 1, example = "AGENT", required = true)
-	@NotNull(message = "SaleChannel Type is mandatory")
-	private SaleChannelType saleChannelType;
+//	@ApiModelProperty(position = 1, example = "AGENT", required = true)
+//	@NotNull(message = "SaleChannel Type is mandatory")
+//	private SaleChannelType saleChannelType;
 
-	@ApiModelProperty(position = 2, example = "MICROHEALTH", required = true)
-	@NotNull(message = "Health Type is mandatory")
-	private HealthType healthType;
+//	@ApiModelProperty(position = 2, example = "MICROHEALTH", required = true)
+//	@NotNull(message = "Health Type is mandatory")
+//	private HealthType healthType;
 	
 	@Valid
 	@ApiModelProperty(position = 3, required = true)

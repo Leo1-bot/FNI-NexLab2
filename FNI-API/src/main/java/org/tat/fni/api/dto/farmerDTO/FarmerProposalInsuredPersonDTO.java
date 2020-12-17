@@ -63,13 +63,13 @@ public class FarmerProposalInsuredPersonDTO {
 	@NotBlank(message = "townshipId is mandatory")
 	private String townshipId;
 
-	@ApiModelProperty(position = 12, example = "ISSYS011000009823001042019", required = true)
-	@NotBlank(message = "occupationID is mandatory")
-	private String occupationID;
-
-	@ApiModelProperty(position = 13, example = "ISSYSO52001000000000123052019", required = true)
-	@NotBlank(message = "riskyOccupationID is mandatory")
-	private String riskyOccupationID;
+//	@ApiModelProperty(position = 12, example = "ISSYS011000009823001042019", required = true)
+//	@NotBlank(message = "occupationID is mandatory")
+//	private String occupationID;
+//
+//	@ApiModelProperty(position = 13, example = "ISSYSO52001000000000123052019", required = true)
+//	@NotBlank(message = "riskyOccupationID is mandatory")
+//	private String riskyOccupationID;
 
 	@ApiModelProperty(position = 14, example = "MALE", required = true)
 	@NotNull(message = "gender is mandatory")

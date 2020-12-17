@@ -47,8 +47,8 @@ public class MicroHealthProposalInsuredPersonDTO {
 	@NotBlank(message = "fatherName is mandatory")
 	private String fatherName;
 
-	@ApiModelProperty(position = 7, example = "true")
-	private boolean needMedicalCheckup;
+//	@ApiModelProperty(position = 7, example = "true")
+//	private boolean needMedicalCheckup;
 
 	@ApiModelProperty(position = 8, example = "1999-12-16", required = true)
 	@NotNull(message = "dateOfBirth is mandatory")
@@ -60,6 +60,7 @@ public class MicroHealthProposalInsuredPersonDTO {
 	@NotEmpty
 	private String relationshipId;
 
+	// TODO replace with customer id
 	@ApiModelProperty(position = 11, example = "ISMED023001000000000110062019")
 	private String guardianId;
 	

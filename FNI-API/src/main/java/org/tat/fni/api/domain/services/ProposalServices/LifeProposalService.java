@@ -293,16 +293,16 @@ public class LifeProposalService implements ILifeProposalService {
 
 			CustomerDto dto = (CustomerDto) customerDto;
 
-			Optional<Township> officeTownshipOptional = townshipService
-					.findById(dto.getOfficeAddress().getTownshipId());
+//			Optional<Township> officeTownshipOptional = townshipService
+//					.findById(dto.getOfficeAddress().getTownshipId());
 			Optional<Township> permanentTownshipOptional = townshipService
 					.findById(dto.getPermanentAddress().getTownshipId());
 			Optional<Township> residentTownshipOptional = townshipService
 					.findById(dto.getResidentAddress().getTownshipId());
 
-			OfficeAddress officeAddress = new OfficeAddress();
-			officeAddress.setOfficeAddress(dto.getOfficeAddress().getOfficeAddress());
-			officeAddress.setTownship(officeTownshipOptional.isPresent() ? officeTownshipOptional.get() : null);
+//			OfficeAddress officeAddress = new OfficeAddress();
+//			officeAddress.setOfficeAddress(dto.getOfficeAddress().getOfficeAddress());
+//			officeAddress.setTownship(officeTownshipOptional.isPresent() ? officeTownshipOptional.get() : null);
 
 			PermanentAddress permanentAddress = new PermanentAddress();
 			permanentAddress.setPermanentAddress(dto.getPermanentAddress().getPermanentAddress());
@@ -351,23 +351,23 @@ public class LifeProposalService implements ILifeProposalService {
 			customer.setInitialId(dto.getInitialId());
 			customer.setFatherName(dto.getFatherName());
 			customer.setDateOfBirth(dto.getDateOfBirth());
-			customer.setLabourNo(dto.getLabourNo());
+			customer.setLabourNo(null);
 			customer.setGender(dto.getGender());
 			customer.setFullIdNo(dto.getIdNo());
 			customer.setIdType(dto.getIdType());
 			if (StringUtils.isNotBlank(String.valueOf(dto.getMaritalStatus()))) {
 				customer.setMaritalStatus(dto.getMaritalStatus());
 			}
-			customer.setOfficeAddress(officeAddress);
+			customer.setOfficeAddress(null);
 			customer.setPermanentAddress(permanentAddress);
 			customer.setResidentAddress(residentAddress);
 			customer.setContentInfo(null);
 			customer.setName(name);
 			customer.setFamilyInfo(null);
-			customer.setQualificationId(dto.getQualificationId());
-			customer.setReligionId(dto.getReligionId());
+			customer.setQualificationId(null);
+			customer.setReligionId(null);
 			customer.setOccupationId(null);
-			customer.setNationalityId(dto.getCountryId());
+			customer.setNationalityId(null);
 			
 			boolean customerExistInMain = checkCustomerAvailability(dto);
 					

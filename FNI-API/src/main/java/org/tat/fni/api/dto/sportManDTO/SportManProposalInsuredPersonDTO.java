@@ -64,8 +64,8 @@ public class SportManProposalInsuredPersonDTO {
 	@NotEmpty
 	private String townshipId;
 
-	@ApiModelProperty(position = 12, example = "ISSYS011000009823001042019", required = true)
-	private String occupationID;
+//	@ApiModelProperty(position = 12, example = "ISSYS011000009823001042019", required = true)
+//	private String occupationID;
 
 	@ApiModelProperty(position = 13, example = "MALE", required = true)
 	@NotNull(message = "gender is mandatory")
@@ -75,8 +75,8 @@ public class SportManProposalInsuredPersonDTO {
 	@NotNull(message = "proposedPremium is mandatory")
 	private double proposedPremium;
 
-	@ApiModelProperty(position = 15, example = "ISSYSO52001000000000123052019", required = true)
-	private String riskoccupationID;
+//	@ApiModelProperty(position = 15, example = "ISSYSO52001000000000123052019", required = true)
+//	private String riskoccupationID;
 
 	@ApiModelProperty(position = 16, example = "3", required = true)
 	@NotNull(message = "unit is mandatory")

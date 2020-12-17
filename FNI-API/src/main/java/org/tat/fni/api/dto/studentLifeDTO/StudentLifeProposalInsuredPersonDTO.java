@@ -41,13 +41,13 @@ public class StudentLifeProposalInsuredPersonDTO {
 	@ApiModelProperty(position = 6, example = "098888888")
 	private String phone;
 
-	@ApiModelProperty(position = 7, example = "NRCNO", required = true)
-	@NotNull(message = "idType is mandatory")
-	private String idType;
-
-	@ApiModelProperty(position = 8, example = "123123123", required = true)
-	@NotNull(message = "idNo is mandatory")
-	private String idNo;
+//	@ApiModelProperty(position = 7, example = "NRCNO", required = true)
+//	@NotNull(message = "idType is mandatory")
+//	private String idType;
+//
+//	@ApiModelProperty(position = 8, example = "123123123", required = true)
+//	@NotNull(message = "idNo is mandatory")
+//	private String idNo;
 
 	@ApiModelProperty(position = 9, example = "10", required = true)
 	@NotNull(message = "age is mandatory")

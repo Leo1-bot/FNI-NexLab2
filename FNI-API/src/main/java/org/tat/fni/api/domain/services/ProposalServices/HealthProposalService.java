@@ -15,6 +15,8 @@ import org.tat.fni.api.common.Name;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.ProposalType;
+import org.tat.fni.api.domain.CustomerType;
+import org.tat.fni.api.domain.HealthType;
 import org.tat.fni.api.domain.Township;
 import org.tat.fni.api.domain.addon.AddOn;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
@@ -129,8 +131,8 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 				});
 				
 				medicalProposal.setComplete(false);
-				medicalProposal.setHealthType(individualHealthInsuranceDTO.getHealthType());
-				medicalProposal.setCustomerType(individualHealthInsuranceDTO.getCustomerType());
+				medicalProposal.setHealthType(HealthType.HEALTH);
+				medicalProposal.setCustomerType(CustomerType.INDIVIDUALCUSTOMER);
 				medicalProposal.setStatus(false);
 				medicalProposal.setProposalType(ProposalType.UNDERWRITING);
 				medicalProposal.setSubmittedDate(individualHealthInsuranceDTO.getSubmittedDate());
@@ -142,7 +144,7 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
 				medicalProposal.setStartDate(individualHealthInsuranceDTO.getStartDate());
 				medicalProposal.setEndDate(individualHealthInsuranceDTO.getEndDate());
-				medicalProposal.setSaleChannelType(individualHealthInsuranceDTO.getSaleChannelType());
+				medicalProposal.setSaleChannelType(null);
 				medicalProposal.setPeriodMonth(individualHealthInsuranceDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
 
@@ -224,7 +226,7 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 			insuredPerson.setProductId(proposalDto instanceof IndividualHealthInsuranceDTO ? individualHealthProductId
 					: groupHealthProductId);
 			insuredPerson.setUnit(dto.getUnit());
-			insuredPerson.setNeedMedicalCheckup(dto.isNeedMedicalCheckup());
+			insuredPerson.setNeedMedicalCheckup(false);
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
 			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
@@ -312,7 +314,7 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 			LifeMedicalProposalInsuredPersonAddOn addon = new LifeMedicalProposalInsuredPersonAddOn();
 			addon.setUnit(addOnDTO.getUnit());
 			addon.setSumInsured(insuredPerson.getSumInsured());
-			addon.setPremium(addOnDTO.getPremium());
+//			addon.setPremium(addOnDTO.getPremium());
 			addon.setAddOn(addOn);
 
 			return addon;

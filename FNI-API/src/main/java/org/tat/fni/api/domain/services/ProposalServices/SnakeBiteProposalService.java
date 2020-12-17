@@ -179,8 +179,8 @@ public class SnakeBiteProposalService extends BaseService implements ILifeProduc
 			insuredPerson.setUnit(dto.getUnit());
 			insuredPerson.setResidentAddress(residentAddress);
 			insuredPerson.setName(name);
-			insuredPerson.setOccupationId(dto.getOccupationID());
-			insuredPerson.setRiskyOccupationId(dto.getRiskyOccupationID());
+			insuredPerson.setOccupationId(null);
+			insuredPerson.setRiskyOccupationId(null);
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
 
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);

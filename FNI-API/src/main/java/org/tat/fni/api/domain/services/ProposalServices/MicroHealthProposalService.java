@@ -15,6 +15,7 @@ import org.tat.fni.api.common.Name;
 import org.tat.fni.api.common.ResidentAddress;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.common.emumdata.ProposalType;
+import org.tat.fni.api.domain.HealthType;
 import org.tat.fni.api.domain.Township;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
@@ -114,7 +115,7 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 				medicalProposal.getMedicalProposalInsuredPersonList()
 						.add(createInsuredPerson(insuredPerson, microHealthInsuranceDTO));
 				medicalProposal.setComplete(false);
-				medicalProposal.setHealthType(microHealthInsuranceDTO.getHealthType());
+				medicalProposal.setHealthType(HealthType.MICROHEALTH);
 				medicalProposal.setStatus(false);
 				medicalProposal.setProposalType(ProposalType.UNDERWRITING);
 				medicalProposal.setSubmittedDate(microHealthInsuranceDTO.getSubmittedDate());
@@ -126,7 +127,7 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
 				medicalProposal.setStartDate(microHealthInsuranceDTO.getStartDate());
 				medicalProposal.setEndDate(microHealthInsuranceDTO.getEndDate());
-				medicalProposal.setSaleChannelType(microHealthInsuranceDTO.getSaleChannelType());
+				medicalProposal.setSaleChannelType(null);
 				medicalProposal.setPeriodMonth(microHealthInsuranceDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
 
@@ -157,7 +158,7 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 			insuredPerson.setAge(dto.getAge());
 			insuredPerson.setProductId(microHealthProductId);
 			insuredPerson.setUnit(dto.getUnit());
-			insuredPerson.setNeedMedicalCheckup(dto.isNeedMedicalCheckup());
+			insuredPerson.setNeedMedicalCheckup(false);
 			insuredPerson.setGuardianId(dto.getGuardianId());
 			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());

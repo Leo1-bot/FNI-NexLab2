@@ -26,17 +26,17 @@ public class IndividualCriticalIllnessDTO {
 	@NotNull(message = "Period Month is mandatory")
 	private int periodMonth;
 
-	@ApiModelProperty(position = 1, example = "AGENT", required = true)
-	@NotNull(message = "SaleChannel Type is mandatory")
-	private SaleChannelType saleChannelType;
+//	@ApiModelProperty(position = 1, example = "AGENT", required = true)
+//	@NotNull(message = "SaleChannel Type is mandatory")
+//	private SaleChannelType saleChannelType;
 
-	@ApiModelProperty(position = 2, example = "CRITICALILLNESS", required = true)
-	@NotNull(message = "Health Type is mandatory")
-	private HealthType healthType;
+//	@ApiModelProperty(position = 2, example = "CRITICALILLNESS", required = true)
+//	@NotNull(message = "Health Type is mandatory")
+//	private HealthType healthType;
 
-	@ApiModelProperty(position = 3, example = "INDIVIDUALCUSTOMER", required = true)
-	@NotNull(message = "Customer Type is mandatory")
-	private CustomerType customerType;
+//	@ApiModelProperty(position = 3, example = "INDIVIDUALCUSTOMER", required = true)
+//	@NotNull(message = "Customer Type is mandatory")
+//	private CustomerType customerType;
 
 	@ApiModelProperty(position = 4, example = "ISSYS002001000000000103062019", required = true)
 	@NotBlank(message = "Agent ID is mandatory")
