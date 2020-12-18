@@ -145,7 +145,11 @@ public class LifeMedicalInsuredPerson {
 	
 	private double premium;
 	private boolean sameCustomer;
-	private String guardianId;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "GUARDIANID", referencedColumnName = "ID")
+	private LifeMedicalGuardian guardian;
+	
 	private String medicalProposalId;
 	private double sumInsured;
 	

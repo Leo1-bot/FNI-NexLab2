@@ -32,6 +32,7 @@ import org.tat.fni.api.domain.services.Interfaces.IMedicalProductsProposalServic
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProposalService;
 import org.tat.fni.api.dto.InsuredPersonAddOnDTO;
 import org.tat.fni.api.dto.customerDTO.CustomerDto;
+import org.tat.fni.api.dto.customerDTO.GuardianDto;
 import org.tat.fni.api.dto.customerDTO.ResidentAddressDto;
 import org.tat.fni.api.dto.healthInsuranceDTO.GroupHealthInsuranceDTO;
 import org.tat.fni.api.dto.healthInsuranceDTO.HealthProposalInsuredPersonBeneficiariesDTO;

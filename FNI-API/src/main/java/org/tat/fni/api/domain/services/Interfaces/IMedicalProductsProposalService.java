@@ -8,6 +8,7 @@ import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposalInsuredPersonAddOn;
 import org.tat.fni.api.dto.InsuredPersonAddOnDTO;
 import org.tat.fni.api.dto.customerDTO.CustomerDto;
+import org.tat.fni.api.dto.customerDTO.GuardianDto;
 
 public interface IMedicalProductsProposalService {
 

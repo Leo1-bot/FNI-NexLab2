@@ -18,17 +18,21 @@ import org.tat.fni.api.common.emumdata.ProposalType;
 import org.tat.fni.api.domain.HealthType;
 import org.tat.fni.api.domain.Township;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalCustomer;
+import org.tat.fni.api.domain.proposalTemp.LifeMedicalGuardian;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPerson;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalInsuredPersonBeneficiary;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposal;
 import org.tat.fni.api.domain.proposalTemp.LifeMedicalProposalInsuredPersonAddOn;
+import org.tat.fni.api.domain.proposalTemp.repository.LifeMedicalGuardianRepository;
 import org.tat.fni.api.domain.proposalTemp.repository.LifeMedicalProposalRepository;
+import org.tat.fni.api.domain.repository.GuardianRepository;
 import org.tat.fni.api.domain.services.TownShipService;
 import org.tat.fni.api.domain.services.Interfaces.ICustomIdGenerator;
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProductsProposalService;
 import org.tat.fni.api.domain.services.Interfaces.IMedicalProposalService;
 import org.tat.fni.api.dto.InsuredPersonAddOnDTO;
 import org.tat.fni.api.dto.customerDTO.CustomerDto;
+import org.tat.fni.api.dto.customerDTO.GuardianDto;
 import org.tat.fni.api.dto.customerDTO.ResidentAddressDto;
 import org.tat.fni.api.dto.microHealthDTO.MicroHealthDTO;
 import org.tat.fni.api.dto.microHealthDTO.MicroHealthProposalInsuredPersonBeneficiariesDTO;
@@ -47,6 +51,9 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 
 	@Autowired
 	private TownShipService townShipService;
+	
+	@Autowired
+	private LifeMedicalGuardianRepository guardianTempRepo;
 
 	@Autowired
 	private IMedicalProposalService medicalProposalService;
@@ -159,11 +166,35 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 			insuredPerson.setProductId(microHealthProductId);
 			insuredPerson.setUnit(dto.getUnit());
 			insuredPerson.setNeedMedicalCheckup(false);
-			insuredPerson.setGuardianId(dto.getGuardianId());
 			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
 			
+			// setting guardian
+			if (insuredPerson.getAge() > 18) {
+				insuredPerson.setGuardian(null);
+			} else {
+				LifeMedicalGuardian guardian = new LifeMedicalGuardian();
+				
+				GuardianDto guardianDto = dto.getGuardian();
+				CustomerDto customerDto = new CustomerDto(guardianDto);
+				
+				LifeMedicalCustomer customer = medicalProposalService.checkCustomerAvailabilityTemp(customerDto);
+
+				if (customer == null) {
+					guardian.setCustomer(medicalProposalService.createNewCustomer(customerDto));
+				} else {
+					guardian.setCustomer(customer);
+				}
+				guardian.setRelationshipId(insuredPerson.getRelationshipId());
+				
+				String guardianNo = customIdRepo.getNextId("GUARDIAN_NO", null);
+				guardian.setGuardianNo(guardianNo);
+				
+				guardianTempRepo.save(guardian);
+				
+				insuredPerson.setGuardian(guardian);
+			}
 
 			String insPersonCodeNo = customIdRepo.getNextId("HEALTH_INSUPERSON_CODE_NO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);

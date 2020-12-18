@@ -171,8 +171,8 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 			insuredPerson.setPhone(dto.getPhone());
 			insuredPerson.setAge(DateUtils.getAgeForNextYear(dto.getDateOfBirth()));
 			insuredPerson.setGender(Gender.valueOf(dto.getGender()));
-			insuredPerson.setWeight(dto.getWeight());
-			insuredPerson.setHeight(dto.getHeight());
+//			insuredPerson.setWeight(dto.getWeight());
+//			insuredPerson.setHeight(dto.getHeight());
 			insuredPerson.setResidentAddress(residentAddress);
 			insuredPerson.setName(name);
 			insuredPerson.setOccupationId(dto.getOccupationID());

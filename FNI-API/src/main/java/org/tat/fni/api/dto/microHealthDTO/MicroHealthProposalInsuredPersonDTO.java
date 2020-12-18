@@ -12,6 +12,8 @@ import org.tat.fni.api.common.emumdata.Gender;
 import org.tat.fni.api.common.emumdata.IdType;
 import org.tat.fni.api.configuration.DateHandler;
 import org.tat.fni.api.dto.InsuredPersonAddOnDTO;
+import org.tat.fni.api.dto.customerDTO.CustomerDto;
+import org.tat.fni.api.dto.customerDTO.GuardianDto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -60,9 +62,8 @@ public class MicroHealthProposalInsuredPersonDTO {
 	@NotEmpty
 	private String relationshipId;
 
-	// TODO replace with customer id
-	@ApiModelProperty(position = 11, example = "ISMED023001000000000110062019")
-	private String guardianId;
+	@ApiModelProperty(position = 11)
+	private GuardianDto guardian;
 	
 	@ApiModelProperty(position = 12, example = "NRCNO", required = true)
 	@NotBlank(message = "idType is mandatory")

@@ -34,6 +34,7 @@ import org.tat.fni.api.dto.criticalIllnessDTO.CriticalillnessProposalInsuredPers
 import org.tat.fni.api.dto.criticalIllnessDTO.GroupCriticalIllnessDTO;
 import org.tat.fni.api.dto.criticalIllnessDTO.IndividualCriticalIllnessDTO;
 import org.tat.fni.api.dto.customerDTO.CustomerDto;
+import org.tat.fni.api.dto.customerDTO.GuardianDto;
 import org.tat.fni.api.dto.customerDTO.ResidentAddressDto;
 import org.tat.fni.api.dto.retrieveDTO.NameDto;
 import org.tat.fni.api.exception.DAOException;

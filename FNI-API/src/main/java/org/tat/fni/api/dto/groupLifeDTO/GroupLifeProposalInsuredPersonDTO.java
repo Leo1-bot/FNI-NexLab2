@@ -83,13 +83,13 @@ public class GroupLifeProposalInsuredPersonDTO {
 	@NotNull(message = "proposedPremium is mandatory")
 	private double proposedPremium;
 
-	@ApiModelProperty(position = 22, required = true)
-	@NotNull(message = "weight is mandatory")
-	private int weight;
-
-	@ApiModelProperty(position = 23, required = true)
-	@NotNull(message = "height is mandatory")
-	private int height;
+//	@ApiModelProperty(position = 22, required = true)
+//	@NotNull(message = "weight is mandatory")
+//	private int weight;
+//
+//	@ApiModelProperty(position = 23, required = true)
+//	@NotNull(message = "height is mandatory")
+//	private int height;
 
 	@Valid
 	@ApiModelProperty(position = 24)
