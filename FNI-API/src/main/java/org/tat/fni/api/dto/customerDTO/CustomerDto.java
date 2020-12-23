@@ -84,12 +84,12 @@ public class CustomerDto implements Serializable {
 //	@ApiModelProperty(position = 15, example="ISSYS017001000000224213112015", required = false)
 //	private String religionId;
 
-//	@ApiModelProperty(position = 16, example="ISSYS011000009823001042019", required = false)
-//	private String occupationId;
+	@ApiModelProperty(position = 16, example="ISSYS011000009823001042019")
+	private String occupationId;
 
-//	@ApiModelProperty(position = 17, example="ISSYS0070001000000000129032013", required = true)
-//	@NotBlank(message = "CountryId ID is mandatory")
-//	private String countryId;
+	@ApiModelProperty(position = 17, example="ISSYS0070001000000000129032013")
+	@NotBlank(message = "CountryId ID is mandatory")
+	private String countryId;
 	
 	public CustomerDto() {}
 	

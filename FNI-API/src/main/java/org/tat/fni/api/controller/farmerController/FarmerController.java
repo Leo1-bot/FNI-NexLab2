@@ -42,7 +42,7 @@ public class FarmerController {
 	@ApiOperation(value = "${FarmerController.submitproposal}")
 	public ResponseDTO<Object> submitproposal(
 			@ApiParam("Submit Farmer Proposal") @Valid @RequestBody FarmerProposalDTO farmerProposalDTO) {
-
+		
 		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		FarmerProposalDTO dto = mapper.map(farmerProposalDTO, FarmerProposalDTO.class);
 

@@ -42,7 +42,7 @@ public class EndowmentLifeController {
 	@ApiOperation(value = "${EndowmentLifeController.submitproposal}")
 	public ResponseDTO<Object> submitproposal(
 			@ApiParam("Submit Endowment Life Proposal") @Valid @RequestBody EndowmentLifeDTO publicLifeDTO) {
-
+		
 		List<LifeMedicalProposal> proposallist = new ArrayList<>();
 		EndowmentLifeDTO dto = mapper.map(publicLifeDTO, EndowmentLifeDTO.class);
 

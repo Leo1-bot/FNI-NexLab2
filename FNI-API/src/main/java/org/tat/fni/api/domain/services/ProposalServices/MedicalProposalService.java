@@ -272,8 +272,8 @@ public class MedicalProposalService implements IMedicalProposalService {
 			customer.setFamilyInfo(null);
 			customer.setQualificationId(null);
 			customer.setReligionId(null);
-			customer.setOccupationId(null);
-			customer.setNationalityId(null);
+			customer.setOccupationId(dto.getOccupationId());
+			customer.setNationalityId(dto.getCountryId());
 
 			boolean customerExistInMain = checkCustomerAvailability(dto);
 					
