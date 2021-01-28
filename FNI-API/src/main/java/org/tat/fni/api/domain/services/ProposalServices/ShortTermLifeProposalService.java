@@ -157,6 +157,7 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			insuredPerson.setName(name);
 			insuredPerson.setOccupationId(dto.getOccupationID());
 			insuredPerson.setProductId(shorttermLifeProductId);
+			insuredPerson.setPhone(dto.getPhone());
 
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
@@ -200,6 +201,7 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			beneficiary.setResidentAddress(residentAddress);
 			beneficiary.setName(name);
 			beneficiary.setRelationshipId(dto.getRelationshipId());
+			beneficiary.setPhone(dto.getPhone());
 			
 			String beneficiaryNo = customIdRepo.getNextId("LIFE_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);

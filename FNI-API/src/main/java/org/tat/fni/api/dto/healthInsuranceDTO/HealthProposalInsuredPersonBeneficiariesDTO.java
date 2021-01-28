@@ -56,12 +56,15 @@ public class HealthProposalInsuredPersonBeneficiariesDTO {
 	
 	@ApiModelProperty(position = 11, example = "23")
 	private int age;
+	
+	@ApiModelProperty(position = 12, example = "23", required = false)
+	private String phone;
 
-	@ApiModelProperty(position = 12, example = "Yangon", required = true)
+	@ApiModelProperty(position = 13, example = "Yangon", required = true)
 	@NotBlank(message = "residentAddress is mandatory")
 	private String residentAddress;
 
-	@ApiModelProperty(position = 13, example = "ISSYS004001000000731326012017", required = true)
+	@ApiModelProperty(position = 14, example = "ISSYS004001000000731326012017", required = true)
 	@NotBlank(message = "townshipId is mandatory")
 	@NotEmpty
 	private String townshipId;

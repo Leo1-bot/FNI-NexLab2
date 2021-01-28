@@ -159,6 +159,7 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 			insuredPerson.setResidentAddress(residentAddress);
 			insuredPerson.setName(name);
 			insuredPerson.setOccupationId(dto.getOccupationID());
+			insuredPerson.setPhone(dto.getPhone());
 
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);

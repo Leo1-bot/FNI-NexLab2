@@ -74,6 +74,9 @@ public class CustomerDto implements Serializable {
 	@ApiModelProperty(position = 12, required = true)
 	@NotNull(message = "Name is mandatory")
 	private NameDto name;
+	
+	@ApiModelProperty(position = 13, example="098888888", required = false)
+	private String phone;
 
 //	@ApiModelProperty(position = 13, required = false)
 //	private List<FamilyInfoDto> familyInfoList;

@@ -24,8 +24,7 @@ public class SportManInsuredPersonBeneficiariesDTO {
 	@ApiModelProperty(position = 4, example = "Aung", required = true)
 	private String lastName;
 
-	@ApiModelProperty(position = 6, example = "0996543423", required = true)
-	@NotNull(message = "phone is mandatory")
+	@ApiModelProperty(position = 6, example = "0996543423", required = false)
 	private String phone;
 
 	@ApiModelProperty(position = 7, example = "NRCNO", required = true)

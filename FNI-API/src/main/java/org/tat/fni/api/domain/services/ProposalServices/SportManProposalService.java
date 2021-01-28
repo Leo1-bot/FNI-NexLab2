@@ -163,6 +163,7 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 			insuredPerson.setOccupationId(null);
 			insuredPerson.setRiskyOccupationId(null);
 			insuredPerson.setTypesOfSportId(dto.getTypeofSportId());
+			insuredPerson.setPhone(dto.getPhone());
 
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
@@ -204,6 +205,7 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 			beneficiary.setName(name);
 			beneficiary.setProposalInsuredPerson(insuredPerson);
 			beneficiary.setRelationshipId(dto.getRelationshipId());
+			beneficiary.setPhone(dto.getPhone());
 			
 			String beneficiaryNo = customIdRepo.getNextId("LIFE_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);

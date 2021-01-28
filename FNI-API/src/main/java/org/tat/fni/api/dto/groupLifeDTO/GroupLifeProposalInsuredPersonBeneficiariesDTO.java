@@ -28,7 +28,7 @@ public class GroupLifeProposalInsuredPersonBeneficiariesDTO {
 	@NotNull(message = "gender is mandatory")
 	private String gender;
 
-	@ApiModelProperty(position = 6, example = "0996543423", required = true)
+	@ApiModelProperty(position = 6, example = "0996543423", required = false)
 	@NotNull(message = "age is mandatory")
 	private String phone;
 

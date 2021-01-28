@@ -158,6 +158,7 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 			insuredPerson.setName(name);
 			insuredPerson.setOccupationId(dto.getOccupationID());
 			insuredPerson.setRiskyOccupationId(dto.getRiskyoccupationID());
+			insuredPerson.setPhone(dto.getPhone());
 
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
@@ -200,6 +201,7 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 			beneficiary.setName(name);
 			beneficiary.setProposalInsuredPerson(insuredPerson);
 			beneficiary.setRelationshipId(dto.getRelationshipId());
+			beneficiary.setPhone(dto.getPhone());
 
 			String beneficiaryNo = customIdRepo.getNextId("LIFE_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);

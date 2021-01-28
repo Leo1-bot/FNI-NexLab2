@@ -41,7 +41,7 @@ public class PersonalAccidentProposalInsuredPersonDTO {
 	@JsonDeserialize(using = DateHandler.class)
 	private Date dateOfBirth;
 
-	@ApiModelProperty(position = 6, example = "099876543")
+	@ApiModelProperty(position = 6, example = "099876543", required = false)
 	private String phone;
 
 	@ApiModelProperty(position = 7, example = "NRCNO", required = true)

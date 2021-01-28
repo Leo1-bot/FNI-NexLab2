@@ -55,17 +55,20 @@ public class ShortTermProposalInsuredPersonDTO {
 
   @ApiModelProperty(position = 14, example = "AUNG")
   private String lastName;
+  
+  @ApiModelProperty(position = 15, example = "AUNG", required = false)
+  private String phone;
 
-  @ApiModelProperty(position = 15, example = "Yangon", required = true)
+  @ApiModelProperty(position = 16, example = "Yangon", required = true)
   @NotNull(message = "residentAddress is mandatory")
   private String residentAddress;
 
-  @ApiModelProperty(position = 16, example = "ISSYS004001000000731326012017", required = true)
+  @ApiModelProperty(position = 17, example = "ISSYS004001000000731326012017", required = true)
   @NotBlank(message = "townshipId is mandatory")
   @NotEmpty
   private String townshipId;
 
-  @ApiModelProperty(position = 17, example = "ISSYS011000009823001042019", required = true)
+  @ApiModelProperty(position = 18, example = "ISSYS011000009823001042019", required = true)
   private String occupationID;
 
   @Valid

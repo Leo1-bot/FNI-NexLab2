@@ -258,7 +258,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 			beneficiary.setName(name);
 			beneficiary.setRelationshipId(dto.getRelationshipId());
 			beneficiary.setProposalInsuredPerson(insuredPerson);
-			
+			beneficiary.setPhone(dto.getPhone());
 
 			String beneficiaryNo = customIdRepo.getNextId("HEALTH_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);

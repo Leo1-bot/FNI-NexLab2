@@ -28,8 +28,7 @@ public class FarmerProposalInsuredPersonBeneficiariesDTO {
 	@NotNull(message = "gender is mandatory")
 	private String gender;
 
-	@ApiModelProperty(position = 6, example = "0996543423", required = true)
-	@NotNull(message = "age is mandatory")
+	@ApiModelProperty(position = 6, example = "0996543423", required = false)
 	private String phone;
 
 	@ApiModelProperty(position = 7, example = "NRCNO", required = true)
