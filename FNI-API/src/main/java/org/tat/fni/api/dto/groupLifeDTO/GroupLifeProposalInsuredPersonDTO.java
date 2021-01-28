@@ -79,10 +79,6 @@ public class GroupLifeProposalInsuredPersonDTO {
 	@NotNull(message = "proposedSumInsured is mandatory")
 	private double proposedSumInsured;
 
-	@ApiModelProperty(position = 19, example = "100000", required = true)
-	@NotNull(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
 //	@ApiModelProperty(position = 22, required = true)
 //	@NotNull(message = "weight is mandatory")
 //	private int weight;

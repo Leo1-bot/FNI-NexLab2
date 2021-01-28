@@ -152,8 +152,6 @@ public class SnakeBiteProposalService extends BaseService implements ILifeProduc
 			LifeMedicalInsuredPerson insuredPerson = new LifeMedicalInsuredPerson();
 			insuredPerson.setProductId(snakeBiteProductId);
 			insuredPerson.setInitialId(dto.getInitialId());
-			insuredPerson.setProposedPremium(dto.getProposedPremium());
-			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
 			insuredPerson.setIdType(IdType.valueOf(dto.getIdType()));
 			insuredPerson.setIdNo(dto.getIdNo());
 			insuredPerson.setFatherName(dto.getFatherName());

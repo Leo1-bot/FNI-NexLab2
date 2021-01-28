@@ -150,7 +150,6 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 			insuredPerson.setProductId(publicTermLifeProductId);
 			insuredPerson.setInitialId(dto.getInitialId());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
-			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setIdType(IdType.valueOf(dto.getIdType()));
 			insuredPerson.setIdNo(dto.getIdNo());
 			insuredPerson.setFatherName(dto.getFatherName());

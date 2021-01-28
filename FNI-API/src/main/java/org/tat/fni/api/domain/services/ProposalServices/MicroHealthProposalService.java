@@ -151,8 +151,6 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 			insuredPerson.setProductId(microHealthProductId);
 			insuredPerson.setUnit(dto.getUnit());
 			insuredPerson.setNeedMedicalCheckup(false);
-			insuredPerson.setProposedPremium(dto.getProposedPremium());
-			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
 			
 			// setting guardian

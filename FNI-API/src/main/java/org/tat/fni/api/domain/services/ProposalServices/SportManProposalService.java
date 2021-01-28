@@ -152,7 +152,6 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 			insuredPerson.setProductId(sportmanProductId);
 			insuredPerson.setInitialId(dto.getInitialId());
 			insuredPerson.setUnit(dto.getUnit());
-			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setIdType(IdType.valueOf(dto.getIdType()));
 			insuredPerson.setIdNo(dto.getIdNo());
 			insuredPerson.setFatherName(dto.getFatherName());

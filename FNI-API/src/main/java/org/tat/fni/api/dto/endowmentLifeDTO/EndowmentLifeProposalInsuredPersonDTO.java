@@ -30,10 +30,6 @@ public class EndowmentLifeProposalInsuredPersonDTO {
 	@NotBlank(message = "proposedSumInsured is mandatory")
 	private double proposedSumInsured;
 
-	@ApiModelProperty(position = 3, example = "100000", required = true)
-	@NotBlank(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
 	@ApiModelProperty(position = 4, example = "1999-12-16", required = true)
 	@NotNull(message = "dateOfBirth is mandatory")
 	@JsonDeserialize(using = DateHandler.class)

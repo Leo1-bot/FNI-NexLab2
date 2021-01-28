@@ -206,8 +206,6 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 			insuredPerson.setUnit(dto.getUnit());
 			insuredPerson.setNeedMedicalCheckup(false);
 			insuredPerson.setRelationshipId(dto.getRelationshipId());
-			insuredPerson.setProposedPremium(dto.getProposedPremium());
-			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
 
 			String insPersonCodeNo = customIdRepo.getNextId("HEALTH_INSUPERSON_CODE_NO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);

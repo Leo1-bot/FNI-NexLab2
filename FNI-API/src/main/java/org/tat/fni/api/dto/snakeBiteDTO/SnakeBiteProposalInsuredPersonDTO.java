@@ -79,14 +79,6 @@ public class SnakeBiteProposalInsuredPersonDTO {
 	@NotNull(message = "unit is mandatory")
 	private int unit;
 
-	@ApiModelProperty(position = 18, example = "100000", required = true)
-	@NotNull(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
-	@ApiModelProperty(position = 19, example = "1000000", required = true)
-	@NotNull(message = "proposedSumInsured is mandatory")
-	private double proposedSumInsured;
-
 	@Valid
 	@ApiModelProperty(position = 20)
 	@NotNull(message = "insuredPersonBeneficiariesList is mandatory")

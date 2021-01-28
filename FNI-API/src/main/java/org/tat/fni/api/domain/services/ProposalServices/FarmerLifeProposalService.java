@@ -151,7 +151,6 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 			insuredPerson.setProductId(farmerpProductId);
 			insuredPerson.setInitialId(dto.getInitialId());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
-			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setIdType(IdType.valueOf(dto.getIdType()));
 			insuredPerson.setIdNo(dto.getIdNo());
 			insuredPerson.setFatherName(dto.getFatherName());

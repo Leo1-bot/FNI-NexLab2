@@ -86,14 +86,6 @@ public class CriticalillnessProposalInsuredPersonDTO {
 	@NotBlank(message = "gender is mandatory")
 	private Gender gender;
 
-	@ApiModelProperty(position = 18, example = "1000000", required = true)
-	@NotBlank(message = "proposedSumInsured is mandatory")
-	private double proposedSumInsured;
-
-	@ApiModelProperty(position = 19, example = "1000000", required = true)
-	@NotBlank(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
 	@Valid
 	@ApiModelProperty(position = 20)
 	@NotNull(message = "insuredPersonBeneficiariesList is mandatory")

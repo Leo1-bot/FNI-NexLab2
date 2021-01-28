@@ -79,10 +79,6 @@ public class FarmerProposalInsuredPersonDTO {
 	@NotNull(message = "proposedSumInsured is mandatory")
 	private double proposedSumInsured;
 
-	@ApiModelProperty(position = 18, example = "100000", required = true)
-	@NotNull(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
 	@Valid
 	@ApiModelProperty(position = 21)
 	@NotNull(message = "insuredPersonBeneficiariesList is mandatory")

@@ -71,10 +71,6 @@ public class SportManProposalInsuredPersonDTO {
 	@NotNull(message = "gender is mandatory")
 	private String gender;
 
-	@ApiModelProperty(position = 14, example = "100000", required = true)
-	@NotNull(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
 //	@ApiModelProperty(position = 15, example = "ISSYSO52001000000000123052019", required = true)
 //	private String riskoccupationID;
 

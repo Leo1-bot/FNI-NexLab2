@@ -82,10 +82,6 @@ public class PersonalAccidentProposalInsuredPersonDTO {
 	@ApiModelProperty(position = 16)
 	private boolean isRiskyOccupation;
 
-	@ApiModelProperty(position = 18, example = "100000", required = true)
-	@NotNull(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
 	@Valid
 	@ApiModelProperty(position = 22)
 	@NotNull(message = "insuredPersonBeneficiariesList is mandatory")

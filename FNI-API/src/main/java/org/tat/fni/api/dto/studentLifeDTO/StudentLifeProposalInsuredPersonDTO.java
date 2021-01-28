@@ -73,10 +73,6 @@ public class StudentLifeProposalInsuredPersonDTO {
 	@NotNull(message = "proposedSumInsured is mandatory")
 	private double proposedSumInsured;
 
-	@ApiModelProperty(position = 17, example = "1000000", required = true)
-	@NotNull(message = "proposedPremium is mandatory")
-	private double proposedPremium;
-
 	@ApiModelProperty(position = 21, example = "U Maung Maung", required = true)
 	@NotNull(message = "parentName is mandatory")
 	private String parentName;

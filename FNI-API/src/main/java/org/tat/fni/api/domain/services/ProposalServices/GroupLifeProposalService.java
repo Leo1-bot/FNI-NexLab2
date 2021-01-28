@@ -148,7 +148,6 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 			insuredPerson.setProductId(groupLifeProductId);
 			insuredPerson.setInitialId(dto.getInitialId());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
-			insuredPerson.setProposedPremium(dto.getProposedPremium());
 			insuredPerson.setIdType(IdType.valueOf(dto.getIdType()));
 			insuredPerson.setIdNo(dto.getIdNo());
 			insuredPerson.setFatherName(dto.getFatherName());
