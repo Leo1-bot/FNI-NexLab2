@@ -85,15 +85,6 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 
 			lifeMedicalProposalRepo.saveAll(healthProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date()).concat(healthProposalList.get(0).getProposalNo());
-//			String referenceNo = healthProposalList.get(0).getId();
-//			String referenceType = "HEALTH";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return healthProposalList;
 
 		} catch (Exception e) {
@@ -123,9 +114,6 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 					medicalProposal.setCustomer(customer);
 				}
 
-//				medicalProposalService.setPeriodMonthForKeyFacterValue(individualHealthInsuranceDTO.getPeriodMonth(),
-//						individualHealthInsuranceDTO.getPaymentTypeId());
-
 				individualHealthInsuranceDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
 					medicalProposal.getMedicalProposalInsuredPersonList()
 							.add(createInsuredPerson(insuredPerson, individualHealthInsuranceDTO));
@@ -146,11 +134,8 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 				medicalProposal.setStartDate(individualHealthInsuranceDTO.getStartDate());
 				medicalProposal.setEndDate(individualHealthInsuranceDTO.getEndDate());
 				medicalProposal.setSaleChannelType(null);
-				medicalProposal.setPeriodMonth(individualHealthInsuranceDTO.getPeriodMonth());
+				medicalProposal.setPeriodMonth(individualHealthInsuranceDTO.getPeriodMonth() / 12);
 				medicalProposal.setProposalNo(proposalNo);
-
-//				medicalProposal = medicalProposalService.calculatePremium(medicalProposal);
-//				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
 			
@@ -179,9 +164,6 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 					medicalProposal.setCustomer(customer);
 				}
 
-//				medicalProposalService.setPeriodMonthForKeyFacterValue(individualHealthInsuranceDTO.getPeriodMonth(),
-//						individualHealthInsuranceDTO.getPaymentTypeId());
-
 				groupHealthInsuranceDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
 					medicalProposal.getMedicalProposalInsuredPersonList()
 							.add(createInsuredPerson(insuredPerson, groupHealthInsuranceDTO));
@@ -204,9 +186,6 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 				medicalProposal.setSaleChannelType(groupHealthInsuranceDTO.getSaleChannelType());
 				medicalProposal.setPeriodMonth(groupHealthInsuranceDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
-
-//				medicalProposal = medicalProposalService.calculatePremium(medicalProposal);
-//				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
 			
@@ -245,11 +224,6 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 				insuredPerson.setCustomer(customer);
 			}
 
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(medicalProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
-			
 			dto.getInsuredPersonAddonOnList().forEach(addon -> {
 				insuredPerson.getInsuredPersonAddOnList().add(createInsuredPersonAddon(addon, insuredPerson));
 			});

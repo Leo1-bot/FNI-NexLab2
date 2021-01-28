@@ -81,15 +81,6 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 					microHealthInsuranceDTO);
 			lifeMedicalProposalRepo.saveAll(microHealthProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date()).concat(microHealthProposalList.get(0).getProposalNo());
-//			String referenceNo = microHealthProposalList.get(0).getId();
-//			String referenceType = "MICRO_HEALTH";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return microHealthProposalList;
 		} catch (Exception e) {
 			logger.error("JOEERROR:" + e.getMessage(), e);
@@ -116,9 +107,6 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 					medicalProposal.setCustomer(customer);
 				}
 
-//				medicalProposalService.setPeriodMonthForKeyFacterValue(microHealthInsuranceDTO.getPeriodMonth(),
-//						microHealthInsuranceDTO.getPaymentTypeId());
-
 				medicalProposal.getMedicalProposalInsuredPersonList()
 						.add(createInsuredPerson(insuredPerson, microHealthInsuranceDTO));
 				medicalProposal.setComplete(false);
@@ -135,11 +123,8 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 				medicalProposal.setStartDate(microHealthInsuranceDTO.getStartDate());
 				medicalProposal.setEndDate(microHealthInsuranceDTO.getEndDate());
 				medicalProposal.setSaleChannelType(null);
-				medicalProposal.setPeriodMonth(microHealthInsuranceDTO.getPeriodMonth());
+				medicalProposal.setPeriodMonth(microHealthInsuranceDTO.getPeriodMonth() / 12);
 				medicalProposal.setProposalNo(proposalNo);
-
-//				medicalProposal = medicalProposalService.calculatePremium(medicalProposal);
-//				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
 			});
@@ -209,10 +194,6 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 				insuredPerson.setCustomer(customer);
 			}
 
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(medicalProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});

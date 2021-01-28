@@ -72,15 +72,6 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 			List<LifeMedicalProposal> sportmanproposalList = convertProposalDTOToProposal(sportMandto);
 			lifeMedicalProposalRepo.saveAll(sportmanproposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date()).concat(sportmanproposalList.get(0).getProposalNo());
-//			String referenceNo = sportmanproposalList.get(0).getId();
-//			String referenceType = "SPORT_MAN";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflowApprove(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistoryApprove(id, referenceNo, referenceType, createdDate, workflowDate);
-			
 			return sportmanproposalList;
 			
 		} catch (Exception e) {
@@ -127,11 +118,8 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 				lifeProposal.setStartDate(sportMandto.getStartDate());
 				lifeProposal.setEndDate(sportMandto.getEndDate());
 				lifeProposal.setSaleChannelType(SaleChannelType.WALKIN);
-				lifeProposal.setPeriodMonth(sportMandto.getPeriodMonth());
+				lifeProposal.setPeriodMonth(sportMandto.getPeriodMonth() / 12);
 				lifeProposal.setProposalNo(proposalNo);
-
-//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-//				lifeProposalService.calculateTermPremium(lifeProposal);
 
 				lifeProposalList.add(lifeProposal);
 				
@@ -180,11 +168,6 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
 
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
-			
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});

@@ -71,18 +71,7 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			// convert shortTermEndowmentlifeProposalDTO to lifeproposal
 			List<LifeMedicalProposal> shortTermEndowmentLifeProposalList = convertProposalDTOToProposal(
 					shortTermEndowmentLifeDto);
-
 			shortTermEndowmentLifeProposalList = lifeMedicalProposalRepo.saveAll(shortTermEndowmentLifeProposalList);
-
-//			String id = DateUtils.formattedSqlDate(new Date())
-//					.concat(shortTermEndowmentLifeProposalList.get(0).getProposalNo());
-//			String referenceNo = shortTermEndowmentLifeProposalList.get(0).getId();
-//			String referenceType = "SHORT_ENDOWMENT_LIFE";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
 
 			return shortTermEndowmentLifeProposalList;
 			
@@ -113,9 +102,6 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 					lifeProposal.setCustomer(customer);
 				}
 
-//				lifeProposalService.setPeriodMonthForKeyFacterValue(shortTermEndowmentLifeDto.getPeriodMonth(),
-//						shortTermEndowmentLifeDto.getPaymentTypeId());
-
 				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 
 				lifeProposal.setComplete(false);
@@ -129,13 +115,10 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 
 				String proposalNo = customIdRepo.getNextId("SHORT_ENDOWMENT_PROPOSAL_NO", null);
 				lifeProposal.setStartDate(shortTermEndowmentLifeDto.getStartDate());
-				lifeProposal.setPeriodMonth(shortTermEndowmentLifeDto.getPeriodMonth());
+				lifeProposal.setPeriodMonth(shortTermEndowmentLifeDto.getPeriodMonth() / 12);
 				lifeProposal.setSaleChannelType(SaleChannelType.AGENT);
 				lifeProposal.setEndDate(shortTermEndowmentLifeDto.getEndDate());
 				lifeProposal.setProposalNo(proposalNo);
-
-//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-//				lifeProposalService.calculateTermPremium(lifeProposal);
 
 				lifeProposalList.add(lifeProposal);
 
@@ -178,11 +161,6 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
-
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
 
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList()

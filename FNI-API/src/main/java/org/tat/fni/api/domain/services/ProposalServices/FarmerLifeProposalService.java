@@ -71,15 +71,6 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 			List<LifeMedicalProposal> farmerProposalList = convertProposalDTOToProposal(farmerProposalDTO);
 			lifeMedicalProposalRepo.saveAll(farmerProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date()).concat(farmerProposalList.get(0).getProposalNo());
-//			String referenceNo = farmerProposalList.get(0).getId();
-//			String referenceType = "FARMER";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return farmerProposalList;
 
 		} catch (DAOException e) {
@@ -109,16 +100,13 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 					lifeProposal.setCustomer(customer);
 				}
 
-//				lifeProposalService.setPeriodMonthForKeyFacterValue(farmerProposalDTO.getPeriodMonth(),
-//						farmerProposalDTO.getPaymentTypeId());
-
 				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 
 				lifeProposal.setComplete(false);
 				lifeProposal.setStatus(false);
 				lifeProposal.setProposalType(ProposalType.UNDERWRITING);
 				lifeProposal.setSubmittedDate(farmerProposalDTO.getSubmittedDate());
-				lifeProposal.setPeriodMonth(farmerProposalDTO.getPeriodMonth());
+				lifeProposal.setPeriodMonth(farmerProposalDTO.getPeriodMonth() / 12);
 				lifeProposal.setSaleChannelType(SaleChannelType.AGENT);
 				lifeProposal.setPaymentTypeId(farmerProposalDTO.getPaymentTypeId());
 				lifeProposal.setAgentId(farmerProposalDTO.getAgentId());
@@ -130,9 +118,6 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 				lifeProposal.setStartDate(farmerProposalDTO.getStartDate());
 				lifeProposal.setEndDate(farmerProposalDTO.getEndDate());
 				lifeProposal.setProposalNo(proposalNo);
-
-//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-//				lifeProposalService.calculateTermPremium(lifeProposal);
 
 				lifeProposalList.add(lifeProposal);
 
@@ -183,11 +168,6 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
 
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
-			
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});

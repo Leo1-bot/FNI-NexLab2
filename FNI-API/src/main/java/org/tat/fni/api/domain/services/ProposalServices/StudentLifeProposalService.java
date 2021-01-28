@@ -69,15 +69,6 @@ public class StudentLifeProposalService extends BaseService implements ILifeProd
 			List<LifeMedicalProposal> studentLifeProposalList = convertProposalDTOToProposal(studentLifeProposalDTO);
 			lifeMedicalProposalRepo.saveAll(studentLifeProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date()).concat(studentLifeProposalList.get(0).getProposalNo());
-//			String referenceNo = studentLifeProposalList.get(0).getId();
-//			String referenceType = "STUDENT_LIFE";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return studentLifeProposalList;
 
 		} catch (DAOException e) {
@@ -107,16 +98,13 @@ public class StudentLifeProposalService extends BaseService implements ILifeProd
 					lifeProposal.setCustomer(customer);
 				}
 
-//				lifeProposalService.setPeriodMonthForKeyFacterValue(studentLifeProposalDTO.getPeriodMonth(),
-//						studentLifeProposalDTO.getPaymentTypeId());
-
 				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 
 				lifeProposal.setComplete(false);
 				lifeProposal.setStatus(false);
 				lifeProposal.setProposalType(ProposalType.UNDERWRITING);
 				lifeProposal.setSubmittedDate(studentLifeProposalDTO.getSubmittedDate());
-				lifeProposal.setPeriodMonth(studentLifeProposalDTO.getPeriodMonth());
+				lifeProposal.setPeriodMonth(studentLifeProposalDTO.getPeriodMonth() / 12);
 				lifeProposal.setSaleChannelType(SaleChannelType.AGENT);
 				lifeProposal.setPaymentTypeId(studentLifeProposalDTO.getPaymentTypeId());
 				lifeProposal.setAgentId(studentLifeProposalDTO.getAgentId());
@@ -127,9 +115,6 @@ public class StudentLifeProposalService extends BaseService implements ILifeProd
 				lifeProposal.setStartDate(studentLifeProposalDTO.getStartDate());
 				lifeProposal.setEndDate(studentLifeProposalDTO.getEndDate());
 				lifeProposal.setProposalNo(proposalNo);
-
-//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-//				lifeProposalService.calculateTermPremium(lifeProposal);
 
 				lifeProposalList.add(lifeProposal);
 
@@ -183,11 +168,6 @@ public class StudentLifeProposalService extends BaseService implements ILifeProd
 
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
-
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
 
 			return insuredPerson;
 			

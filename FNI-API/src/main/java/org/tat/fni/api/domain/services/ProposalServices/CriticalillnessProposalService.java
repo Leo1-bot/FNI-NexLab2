@@ -81,16 +81,6 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 
 			lifeMedicalProposalRepo.saveAll(criticalillnessProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date())
-//					.concat(criticalillnessProposalList.get(0).getProposalNo());
-//			String referenceNo = criticalillnessProposalList.get(0).getId();
-//			String referenceType = "CRITICAL_ILLNESS";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return criticalillnessProposalList;
 
 		} catch (Exception e) {
@@ -118,9 +108,6 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 					medicalProposal.setCustomer(customer);
 				}
 
-//				medicalProposalService.setPeriodMonthForKeyFacterValue(criticalIllnessDTO.getPeriodMonth(),
-//						criticalIllnessDTO.getPaymentTypeId());
-
 				criticalIllnessDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
 					medicalProposal.getMedicalProposalInsuredPersonList()
 							.add(createInsuredPerson(insuredPerson, criticalIllnessDTO));
@@ -130,7 +117,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				medicalProposal.setHealthType(HealthType.CRITICALILLNESS);
 				medicalProposal.setCustomerType(CustomerType.INDIVIDUALCUSTOMER);
 				medicalProposal.setStatus(false);
-				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth());
+				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth() / 12);
 				medicalProposal.setProposalType(ProposalType.UNDERWRITING);
 				medicalProposal.setSubmittedDate(criticalIllnessDTO.getSubmittedDate());
 				medicalProposal.setAgentId(criticalIllnessDTO.getAgentId());
@@ -144,9 +131,6 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				medicalProposal.setSaleChannelType(null);
 				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
-
-//				medicalProposal = medicalProposalService.calculatePremium(medicalProposal);
-//				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
 			
@@ -174,10 +158,7 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				} else {
 					medicalProposal.setCustomer(customer);
 				}
-
-//				medicalProposalService.setPeriodMonthForKeyFacterValue(criticalIllnessDTO.getPeriodMonth(),
-//						criticalIllnessDTO.getPaymentTypeId());
-
+				
 				criticalIllnessDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
 					medicalProposal.getMedicalProposalInsuredPersonList()
 							.add(createInsuredPerson(insuredPerson, criticalIllnessDTO));
@@ -201,9 +182,6 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				medicalProposal.setSaleChannelType(criticalIllnessDTO.getSaleChannelType());
 				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
-
-//				medicalProposal = medicalProposalService.calculatePremium(medicalProposal);
-//				medicalProposalService.calculateTermPremium(medicalProposal);
 
 				medicalProposalList.add(medicalProposal);
 			
@@ -243,11 +221,6 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 			} else {
 				insuredPerson.setCustomer(customer);
 			}
-
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(medicalProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
 
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));

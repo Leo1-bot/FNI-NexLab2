@@ -72,16 +72,6 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 			List<LifeMedicalProposal> personalaccidentProposalList = convertProposalDTOToProposal(personalaccidentdto);
 			lifeMedicalProposalRepo.saveAll(personalaccidentProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date())
-//					.concat(personalaccidentProposalList.get(0).getProposalNo());
-//			String referenceNo = personalaccidentProposalList.get(0).getId();
-//			String referenceType = "PA";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return personalaccidentProposalList;
 
 		} catch (Exception e) {
@@ -110,9 +100,6 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 					lifeProposal.setCustomer(customer);
 				}
 
-//				lifeProposalService.setPeriodMonthForKeyFacterValue(personalaccidentdto.getPeriodMonth(),
-//						personalaccidentdto.getPaymentTypeId());
-
 				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 				lifeProposal.setComplete(false);
 				lifeProposal.setStatus(false);
@@ -128,11 +115,8 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 				lifeProposal.setStartDate(personalaccidentdto.getStartDate());
 				lifeProposal.setEndDate(personalaccidentdto.getEndDate());
 				lifeProposal.setSaleChannelType(SaleChannelType.DIRECTMARKETING);
-				lifeProposal.setPeriodMonth(personalaccidentdto.getPeriodMonth());
+				lifeProposal.setPeriodMonth(personalaccidentdto.getPeriodMonth() / 12);
 				lifeProposal.setProposalNo(proposalNo);
-
-//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-//				lifeProposalService.calculateTermPremium(lifeProposal);
 
 				lifeProposalList.add(lifeProposal);
 			});
@@ -178,11 +162,6 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
-
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
 
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList()

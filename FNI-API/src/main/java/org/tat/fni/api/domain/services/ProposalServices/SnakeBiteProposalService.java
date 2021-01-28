@@ -71,15 +71,6 @@ public class SnakeBiteProposalService extends BaseService implements ILifeProduc
 			List<LifeMedicalProposal> snakeBiteProposalList = convertProposalDTOToProposal(snakeBiteDTO);
 			lifeMedicalProposalRepo.saveAll(snakeBiteProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date()).concat(snakeBiteProposalList.get(0).getProposalNo());
-//			String referenceNo = snakeBiteProposalList.get(0).getId();
-//			String referenceType = "SNAKE_BITE";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflowApprove(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistoryApprove(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return snakeBiteProposalList;
 			
 		} catch (DAOException e) {
@@ -110,16 +101,13 @@ public class SnakeBiteProposalService extends BaseService implements ILifeProduc
 					lifeProposal.setCustomer(customer);
 				}
 
-//				lifeProposalService.setPeriodMonthForKeyFacterValue(snakeBiteDTO.getPeriodMonth(),
-//						snakeBiteDTO.getPaymentTypeId());
-
 				lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 
 				lifeProposal.setComplete(false);
 				lifeProposal.setStatus(false);
 				lifeProposal.setProposalType(ProposalType.UNDERWRITING);
 				lifeProposal.setSubmittedDate(snakeBiteDTO.getSubmittedDate());
-				lifeProposal.setPeriodMonth(snakeBiteDTO.getPeriodMonth());
+				lifeProposal.setPeriodMonth(snakeBiteDTO.getPeriodMonth() / 12);
 				lifeProposal.setSaleChannelType(SaleChannelType.AGENT);
 				lifeProposal.setPaymentTypeId(snakeBiteDTO.getPaymentTypeId());
 				lifeProposal.setAgentId(snakeBiteDTO.getAgentId());
@@ -132,9 +120,6 @@ public class SnakeBiteProposalService extends BaseService implements ILifeProduc
 				lifeProposal.setStartDate(snakeBiteDTO.getStartDate());
 				lifeProposal.setEndDate(snakeBiteDTO.getEndDate());
 				lifeProposal.setProposalNo(proposalNo);
-
-//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-//				lifeProposalService.calculateTermPremium(lifeProposal);
 
 				lifeProposalList.add(lifeProposal);
 
@@ -186,11 +171,6 @@ public class SnakeBiteProposalService extends BaseService implements ILifeProduc
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
 
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
-			
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});

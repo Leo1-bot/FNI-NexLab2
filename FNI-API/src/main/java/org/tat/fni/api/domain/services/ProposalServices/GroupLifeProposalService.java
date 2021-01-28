@@ -70,15 +70,6 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 			List<LifeMedicalProposal> groupLifeProposalList = convertProposalDTOToProposal(groupLifeDTO);
 			lifeMedicalProposalRepo.saveAll(groupLifeProposalList);
 
-//			String id = DateUtils.formattedSqlDate(new Date()).concat(groupLifeProposalList.get(0).getProposalNo());
-//			String referenceNo = groupLifeProposalList.get(0).getId();
-//			String referenceType = "GROUP_LIFE";
-//			String createdDate = DateUtils.formattedSqlDate(new Date());
-//			String workflowDate = DateUtils.formattedSqlDate(new Date());
-//
-//			lifeProposalRepo.saveToWorkflow(id, referenceNo, referenceType, createdDate);
-//			lifeProposalRepo.saveToWorkflowHistory(id, referenceNo, referenceType, createdDate, workflowDate);
-
 			return groupLifeProposalList;
 
 		} catch (DAOException e) {
@@ -106,9 +97,6 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 					lifeProposal.setCustomer(customer);
 				}
 
-//				lifeProposalService.setPeriodMonthForKeyFacterValue(groupLifeDTO.getPeriodMonth(),
-//						groupLifeDTO.getPaymentTypeId());
-				
 				groupLifeDTO.getProposalInsuredPersonList().forEach(insuredPerson -> {
 					lifeProposal.getProposalInsuredPersonList().add(createInsuredPerson(insuredPerson));
 				});
@@ -117,7 +105,7 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 				lifeProposal.setStatus(false);
 				lifeProposal.setProposalType(ProposalType.UNDERWRITING);
 				lifeProposal.setSubmittedDate(groupLifeDTO.getSubmittedDate());
-				lifeProposal.setPeriodMonth(groupLifeDTO.getPeriodMonth());
+				lifeProposal.setPeriodMonth(groupLifeDTO.getPeriodMonth() / 12);
 				lifeProposal.setSaleChannelType(SaleChannelType.AGENT);
 				lifeProposal.setPaymentTypeId(groupLifeDTO.getPaymentTypeId());
 				lifeProposal.setAgentId(groupLifeDTO.getAgentId());
@@ -130,10 +118,7 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 				lifeProposal.setEndDate(groupLifeDTO.getEndDate());
 				lifeProposal.setProposalNo(proposalNo);
 
-//				lifeProposal = lifeProposalService.calculatePremium(lifeProposal);
-//				lifeProposalService.calculateTermPremium(lifeProposal);
-			
-			lifeProposalList.add(lifeProposal);
+				lifeProposalList.add(lifeProposal);
 
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
@@ -181,11 +166,6 @@ public class GroupLifeProposalService extends BaseService implements ILifeProduc
 			String insPersonCodeNo = customId.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
 
-//			insuredPerson.getProduct().getKeyFactorList().forEach(keyfactor -> {
-//				insuredPerson.getKeyFactorValueList()
-//						.add(lifeProposalService.createKeyFactorValue(keyfactor, insuredPerson, dto));
-//			});
-			
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList().add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});
