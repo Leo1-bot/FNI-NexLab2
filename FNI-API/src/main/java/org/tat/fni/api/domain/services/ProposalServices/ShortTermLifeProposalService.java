@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ import org.tat.fni.api.domain.services.Interfaces.ILifeProposalService;
 import org.tat.fni.api.dto.shortTermEndowmentLifeDTO.ShortTermEndowmentLifeDTO;
 import org.tat.fni.api.dto.shortTermEndowmentLifeDTO.ShortTermProposalInsuredPersonBeneficiariesDTO;
 import org.tat.fni.api.dto.shortTermEndowmentLifeDTO.ShortTermProposalInsuredPersonDTO;
+import org.tat.fni.api.exception.CustomException;
 import org.tat.fni.api.exception.DAOException;
 import org.tat.fni.api.exception.SystemException;
 
@@ -60,6 +62,9 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 
 	@Value("${shorttermLifeProductId}")
 	private String shorttermLifeProductId;
+	
+//	private List<Float> beneficiaryPercentages;
+//	private boolean isValid = true;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -71,7 +76,10 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			// convert shortTermEndowmentlifeProposalDTO to lifeproposal
 			List<LifeMedicalProposal> shortTermEndowmentLifeProposalList = convertProposalDTOToProposal(
 					shortTermEndowmentLifeDto);
-			shortTermEndowmentLifeProposalList = lifeMedicalProposalRepo.saveAll(shortTermEndowmentLifeProposalList);
+			
+//			if (isValid) {
+				shortTermEndowmentLifeProposalList = lifeMedicalProposalRepo.saveAll(shortTermEndowmentLifeProposalList);
+//			}
 
 			return shortTermEndowmentLifeProposalList;
 			
@@ -131,6 +139,8 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 
 	@Override
 	public <T> LifeMedicalInsuredPerson createInsuredPerson(T proposalInsuredPersonDTO) {
+		
+		LifeMedicalInsuredPerson insuredPerson = new LifeMedicalInsuredPerson();
 		try {
 
 			ShortTermProposalInsuredPersonDTO dto = (ShortTermProposalInsuredPersonDTO) proposalInsuredPersonDTO;
@@ -142,8 +152,6 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			name.setFirstName(dto.getFirstName());
 			name.setMiddleName(dto.getMiddleName());
 			name.setLastName(dto.getLastName());
-
-			LifeMedicalInsuredPerson insuredPerson = new LifeMedicalInsuredPerson();
 
 			insuredPerson.setInitialId(dto.getInitialId());
 			insuredPerson.setProposedSumInsured(dto.getProposedSumInsured());
@@ -162,15 +170,34 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
 
+//			beneficiaryPercentages = new ArrayList<Float>();
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList()
 						.add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});
-
+			
+//			if (!beneficiaryPercentages.isEmpty()) {
+//				float sum = 0;
+//				for(float percentage : beneficiaryPercentages) {
+//					sum += percentage;
+//				}
+//				if (sum > 100) {
+//					throw new CustomException("Beneficiary percentage must not over 100% "
+//							+ "for every beneficiary person combined.", HttpStatus.BAD_REQUEST);
+//				}
+//			}
+			
 			return insuredPerson;
+			
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
-		}
+		} 
+//		catch (CustomException e) {
+//			e.printStackTrace();
+//			System.exit(1);
+//		}
+		
+//		return insuredPerson;
 	}
 
 	@Override
@@ -205,6 +232,8 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			
 			String beneficiaryNo = customIdRepo.getNextId("LIFE_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);
+			
+//			beneficiaryPercentages.add(beneficiary.getPercentage());
 			
 			return beneficiary;
 			
