@@ -56,7 +56,7 @@ public class ShortTermProposalInsuredPersonDTO {
   @ApiModelProperty(position = 14, example = "AUNG")
   private String lastName;
   
-  @ApiModelProperty(position = 15, example = "AUNG", required = false)
+  @ApiModelProperty(position = 15, example = "098888888", required = false)
   private String phone;
 
   @ApiModelProperty(position = 16, example = "Yangon", required = true)

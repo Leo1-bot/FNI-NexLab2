@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,9 +63,6 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 
 	@Value("${shorttermLifeProductId}")
 	private String shorttermLifeProductId;
-	
-//	private List<Float> beneficiaryPercentages;
-//	private boolean isValid = true;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -77,9 +75,8 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			List<LifeMedicalProposal> shortTermEndowmentLifeProposalList = convertProposalDTOToProposal(
 					shortTermEndowmentLifeDto);
 			
-//			if (isValid) {
-				shortTermEndowmentLifeProposalList = lifeMedicalProposalRepo.saveAll(shortTermEndowmentLifeProposalList);
-//			}
+			shortTermEndowmentLifeProposalList = lifeMedicalProposalRepo.saveAll(shortTermEndowmentLifeProposalList);
+
 
 			return shortTermEndowmentLifeProposalList;
 			
@@ -125,7 +122,12 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 				lifeProposal.setStartDate(shortTermEndowmentLifeDto.getStartDate());
 				lifeProposal.setPeriodMonth(shortTermEndowmentLifeDto.getPeriodMonth() / 12);
 				lifeProposal.setSaleChannelType(SaleChannelType.AGENT);
-				lifeProposal.setEndDate(shortTermEndowmentLifeDto.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(lifeProposal.getStartDate());
+				cal.add(Calendar.YEAR, lifeProposal.getPeriodMonth());
+				
+				lifeProposal.setEndDate(cal.getTime());
 				lifeProposal.setProposalNo(proposalNo);
 
 				lifeProposalList.add(lifeProposal);
@@ -170,34 +172,16 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			String insPersonCodeNo = customIdRepo.getNextId("LIFE_INSUREDPERSON_CODENO", null);
 			insuredPerson.setInsPersonCodeNo(insPersonCodeNo);
 
-//			beneficiaryPercentages = new ArrayList<Float>();
 			dto.getInsuredPersonBeneficiariesList().forEach(beneficiary -> {
 				insuredPerson.getInsuredPersonBeneficiariesList()
 						.add(createInsuredPersonBeneficiareis(beneficiary, insuredPerson));
 			});
 			
-//			if (!beneficiaryPercentages.isEmpty()) {
-//				float sum = 0;
-//				for(float percentage : beneficiaryPercentages) {
-//					sum += percentage;
-//				}
-//				if (sum > 100) {
-//					throw new CustomException("Beneficiary percentage must not over 100% "
-//							+ "for every beneficiary person combined.", HttpStatus.BAD_REQUEST);
-//				}
-//			}
-			
 			return insuredPerson;
 			
 		} catch (DAOException e) {
 			throw new SystemException(e.getErrorCode(), e.getMessage());
-		} 
-//		catch (CustomException e) {
-//			e.printStackTrace();
-//			System.exit(1);
-//		}
-		
-//		return insuredPerson;
+		}
 	}
 
 	@Override
@@ -233,7 +217,6 @@ public class ShortTermLifeProposalService extends BaseService implements ILifePr
 			String beneficiaryNo = customIdRepo.getNextId("LIFE_BENEFICIARY_NO", null);
 			beneficiary.setBeneficiaryNo(beneficiaryNo);
 			
-//			beneficiaryPercentages.add(beneficiary.getPercentage());
 			
 			return beneficiary;
 			

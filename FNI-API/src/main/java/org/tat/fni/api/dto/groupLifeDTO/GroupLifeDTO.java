@@ -50,10 +50,10 @@ public class GroupLifeDTO {
 	@JsonDeserialize(using = DateHandler.class)
 	private Date startDate;
 
-	@ApiModelProperty(position = 9, example = "2021-12-18", required = true)
-	@NotNull(message = "EndDate is mandatory")
-	@JsonDeserialize(using = DateHandler.class)
-	private Date endDate;
+//	@ApiModelProperty(position = 9, example = "2021-12-18", required = true)
+//	@NotNull(message = "EndDate is mandatory")
+//	@JsonDeserialize(using = DateHandler.class)
+//	private Date endDate;
 
 	@ApiModelProperty(position = 11, example = "FIRSTCLASS", required = true)
 	@NotNull(message = "Customer Classification Of Health is mandatory")

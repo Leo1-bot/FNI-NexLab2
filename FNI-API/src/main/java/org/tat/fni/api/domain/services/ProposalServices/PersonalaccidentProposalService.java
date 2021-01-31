@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,7 +114,12 @@ public class PersonalaccidentProposalService extends BaseService implements ILif
 
 				String proposalNo = customIdRepo.getNextId("PERSONAL_ACCIDENT_PROPOSAL_NO", null);
 				lifeProposal.setStartDate(personalaccidentdto.getStartDate());
-				lifeProposal.setEndDate(personalaccidentdto.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(lifeProposal.getStartDate());
+				cal.add(Calendar.YEAR, lifeProposal.getPeriodMonth());
+				
+				lifeProposal.setEndDate(cal.getTime());
 				lifeProposal.setSaleChannelType(SaleChannelType.DIRECTMARKETING);
 				lifeProposal.setPeriodMonth(personalaccidentdto.getPeriodMonth() / 12);
 				lifeProposal.setProposalNo(proposalNo);

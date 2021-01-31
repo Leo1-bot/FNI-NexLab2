@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,7 +117,12 @@ public class FarmerLifeProposalService extends BaseService implements ILifeProdu
 
 				String proposalNo = customId.getNextId("FARMER_PROPOSAL_NO", null);
 				lifeProposal.setStartDate(farmerProposalDTO.getStartDate());
-				lifeProposal.setEndDate(farmerProposalDTO.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(lifeProposal.getStartDate());
+				cal.add(Calendar.YEAR, lifeProposal.getPeriodMonth());
+				
+				lifeProposal.setEndDate(cal.getTime());
 				lifeProposal.setProposalNo(proposalNo);
 
 				lifeProposalList.add(lifeProposal);

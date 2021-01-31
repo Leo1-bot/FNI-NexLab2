@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,9 +102,6 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 		LifeMedicalProposal medicalProposal = new LifeMedicalProposal();
 
 		try {
-			
-				
-
 				LifeMedicalCustomer customer = medicalProposalService
 						.checkCustomerAvailabilityTemp(individualHealthInsuranceDTO.getCustomer());
 
@@ -131,10 +129,15 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 				medicalProposal.setSalesPointsId(salespointId);
 
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
-				medicalProposal.setStartDate(individualHealthInsuranceDTO.getStartDate());
-				medicalProposal.setEndDate(individualHealthInsuranceDTO.getEndDate());
-				medicalProposal.setSaleChannelType(null);
 				medicalProposal.setPeriodMonth(individualHealthInsuranceDTO.getPeriodMonth() / 12);
+				medicalProposal.setStartDate(individualHealthInsuranceDTO.getStartDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(medicalProposal.getStartDate());
+				cal.add(Calendar.YEAR, medicalProposal.getPeriodMonth());
+				
+				medicalProposal.setEndDate(cal.getTime());
+				medicalProposal.setSaleChannelType(null);
 				medicalProposal.setProposalNo(proposalNo);
 
 				medicalProposalList.add(medicalProposal);
@@ -181,10 +184,15 @@ public class HealthProposalService implements IMedicalProductsProposalService {
 				medicalProposal.setOrganizationId(groupHealthInsuranceDTO.getOrganizationId());
 
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
+				medicalProposal.setPeriodMonth(groupHealthInsuranceDTO.getPeriodMonth() / 12);
 				medicalProposal.setStartDate(groupHealthInsuranceDTO.getStartDate());
-				medicalProposal.setEndDate(groupHealthInsuranceDTO.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(medicalProposal.getStartDate());
+				cal.add(Calendar.YEAR, medicalProposal.getPeriodMonth());
+				
+				medicalProposal.setEndDate(cal.getTime());
 				medicalProposal.setSaleChannelType(groupHealthInsuranceDTO.getSaleChannelType());
-				medicalProposal.setPeriodMonth(groupHealthInsuranceDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
 
 				medicalProposalList.add(medicalProposal);

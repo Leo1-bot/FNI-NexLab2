@@ -61,10 +61,10 @@ public class IndividualCriticalIllnessDTO {
 	@JsonDeserialize(using = DateHandler.class)
 	private Date startDate;
 
-	@ApiModelProperty(position = 12, example = "2021-12-18", required = true)
-	@NotNull(message = "EndDate is mandatory")
-	@JsonDeserialize(using = DateHandler.class)
-	private Date endDate;
+//	@ApiModelProperty(position = 12, example = "2021-12-18", required = true)
+//	@NotNull(message = "EndDate is mandatory")
+//	@JsonDeserialize(using = DateHandler.class)
+//	private Date endDate;
 
 	@ApiModelProperty(position = 14)
 	private ClassificationOfHealth customerClsOfHealth;

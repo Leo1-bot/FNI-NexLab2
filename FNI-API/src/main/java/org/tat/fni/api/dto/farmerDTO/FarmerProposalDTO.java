@@ -49,10 +49,10 @@ public class FarmerProposalDTO {
 	@JsonDeserialize(using = DateHandler.class)
 	private Date startDate;
 
-	@ApiModelProperty(position = 11, example = "2021-12-18", required = true)
-	@NotNull(message = "EndDate is mandatory")
-	@JsonDeserialize(using = DateHandler.class)
-	private Date endDate;
+//	@ApiModelProperty(position = 11, example = "2021-12-18", required = true)
+//	@NotNull(message = "EndDate is mandatory")
+//	@JsonDeserialize(using = DateHandler.class)
+//	private Date endDate;
 
 	@ApiModelProperty(position = 13, example = "SECONDCLASS", required = true)
 	@NotNull(message = "Customer Classification Of Health is mandatory")

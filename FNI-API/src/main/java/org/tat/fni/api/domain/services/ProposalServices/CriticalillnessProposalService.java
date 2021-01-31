@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,10 +127,15 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				medicalProposal.setSalesPointsId(salespointId);
 
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
+				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth() / 12);
 				medicalProposal.setStartDate(criticalIllnessDTO.getStartDate());
-				medicalProposal.setEndDate(criticalIllnessDTO.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(medicalProposal.getStartDate());
+				cal.add(Calendar.YEAR, medicalProposal.getPeriodMonth());
+				
+				medicalProposal.setEndDate(cal.getTime());
 				medicalProposal.setSaleChannelType(null);
-				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth());
 				medicalProposal.setProposalNo(proposalNo);
 
 				medicalProposalList.add(medicalProposal);
@@ -177,10 +183,16 @@ public class CriticalillnessProposalService implements IMedicalProductsProposalS
 				medicalProposal.setOrganizationId(criticalIllnessDTO.getOrganizationId());
 
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
+				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth() / 12);
 				medicalProposal.setStartDate(criticalIllnessDTO.getStartDate());
-				medicalProposal.setEndDate(criticalIllnessDTO.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(medicalProposal.getStartDate());
+				cal.add(Calendar.YEAR, medicalProposal.getPeriodMonth());
+				
+				medicalProposal.setEndDate(cal.getTime());
 				medicalProposal.setSaleChannelType(criticalIllnessDTO.getSaleChannelType());
-				medicalProposal.setPeriodMonth(criticalIllnessDTO.getPeriodMonth());
+				
 				medicalProposal.setProposalNo(proposalNo);
 
 				medicalProposalList.add(medicalProposal);

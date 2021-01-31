@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,7 +117,12 @@ public class SportManProposalService extends BaseService implements ILifeProduct
 
 				String proposalNo = customIdRepo.getNextId("LIFE_SPORTMAN_PROPOSAL_NO", null);
 				lifeProposal.setStartDate(sportMandto.getStartDate());
-				lifeProposal.setEndDate(sportMandto.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(lifeProposal.getStartDate());
+				cal.add(Calendar.YEAR, lifeProposal.getPeriodMonth());
+				
+				lifeProposal.setEndDate(cal.getTime());
 				lifeProposal.setSaleChannelType(SaleChannelType.WALKIN);
 				lifeProposal.setPeriodMonth(sportMandto.getPeriodMonth() / 12);
 				lifeProposal.setProposalNo(proposalNo);

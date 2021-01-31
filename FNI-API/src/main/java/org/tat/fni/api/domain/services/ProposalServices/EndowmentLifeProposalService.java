@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,7 +116,12 @@ public class EndowmentLifeProposalService extends BaseService implements ILifePr
 
 				String proposalNo = customId.getNextId("PUBLICLIFE_PROPOSAL_NO", null);
 				lifeProposal.setStartDate(publicLifeDTO.getStartDate());
-				lifeProposal.setEndDate(publicLifeDTO.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(lifeProposal.getStartDate());
+				cal.add(Calendar.YEAR, lifeProposal.getPeriodMonth());
+				
+				lifeProposal.setEndDate(cal.getTime());
 				lifeProposal.setProposalNo(proposalNo);
 
 				lifeProposalList.add(lifeProposal);

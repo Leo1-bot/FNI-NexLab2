@@ -61,10 +61,10 @@ public class IndividualHealthInsuranceDTO {
 	@JsonDeserialize(using = DateHandler.class)
 	private Date startDate;
 
-	@ApiModelProperty(position = 11, example = "2021-12-18", required = true)
-	@NotNull(message = "EndDate is mandatory")
-	@JsonDeserialize(using = DateHandler.class)
-	private Date endDate;
+//	@ApiModelProperty(position = 11, example = "2021-12-18", required = true)
+//	@NotNull(message = "EndDate is mandatory")
+//	@JsonDeserialize(using = DateHandler.class)
+//	private Date endDate;
 	
 //	@ApiModelProperty(position = 13, example = "false", required = true)
 //	@NotNull(message = "status is mandatory")

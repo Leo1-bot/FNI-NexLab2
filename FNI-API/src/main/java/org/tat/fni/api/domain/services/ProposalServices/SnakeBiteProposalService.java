@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -118,7 +119,12 @@ public class SnakeBiteProposalService extends BaseService implements ILifeProduc
 
 				String proposalNo = customId.getNextId("SNAKEBITE_PROPOSAL_NO", null);
 				lifeProposal.setStartDate(snakeBiteDTO.getStartDate());
-				lifeProposal.setEndDate(snakeBiteDTO.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(lifeProposal.getStartDate());
+				cal.add(Calendar.YEAR, lifeProposal.getPeriodMonth());
+				
+				lifeProposal.setEndDate(cal.getTime());
 				lifeProposal.setProposalNo(proposalNo);
 
 				lifeProposalList.add(lifeProposal);

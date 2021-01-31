@@ -1,6 +1,7 @@
 package org.tat.fni.api.domain.services.ProposalServices;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,8 +121,14 @@ public class MicroHealthProposalService implements IMedicalProductsProposalServi
 				medicalProposal.setSalesPointsId(salespointId);
 
 				String proposalNo = customIdRepo.getNextId("HEALTH_PROPOSAL_NO", null);
+				medicalProposal.setPeriodMonth(microHealthInsuranceDTO.getPeriodMonth() / 12);
 				medicalProposal.setStartDate(microHealthInsuranceDTO.getStartDate());
-				medicalProposal.setEndDate(microHealthInsuranceDTO.getEndDate());
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(medicalProposal.getStartDate());
+				cal.add(Calendar.YEAR, medicalProposal.getPeriodMonth());
+				
+				medicalProposal.setEndDate(cal.getTime());
 				medicalProposal.setSaleChannelType(null);
 				medicalProposal.setPeriodMonth(microHealthInsuranceDTO.getPeriodMonth() / 12);
 				medicalProposal.setProposalNo(proposalNo);
